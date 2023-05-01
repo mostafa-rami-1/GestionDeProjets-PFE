@@ -159,6 +159,25 @@ section > .search{
     justify-content: center;
 }
 
+.ajouter{
+    position: fixed;
+    bottom: 40px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 10;
+    cursor: pointer;
+    opacity: 0.9;
+}
+.ajouter:hover {
+    opacity: 1;
+}
+.ajouter:active{
+    scale: 0.95;
+}
+
+
 @media (max-width: 1000px) {
     .content-container{
         justify-content: space-between;

@@ -9,12 +9,14 @@ import "./projetcs.css"
 import { Description } from '../modals/description/Description';
 import EditModal from '../modals/edit/EditModal';
 import Search from '../sub-components/search/Search';
+import { AddCircle } from 'iconsax-react';
+import { AddProject } from '../modals/add/AddProject';
 
 
 
 export default function Projects() {
   const [loading, setLoading] = useState(false)
-  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched } = useContext(StateContext)
+  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched ,addModalIsOpen,setAddModalIsOpen } = useContext(StateContext)
   const [projetsFetched , setProjetsFetched] = useState(projets)
   const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets]);
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
@@ -67,6 +69,7 @@ export default function Projects() {
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">
+            <AddProject/>
             <Delete id={idProjet} />
             <Description />
             <EditModal id={idProjet}/>
@@ -84,7 +87,7 @@ export default function Projects() {
               const statut = projet.statut
               const cout = `${projet.cout} MAD`
 
-              return <ProjectCard key={projet.nom}
+              return <ProjectCard key={projet.id_projet}
                 id={id}
                 nom={nom}
                 description = {description}
@@ -98,7 +101,9 @@ export default function Projects() {
                 cout={cout}
               />
             })}
-            
+            <div onClick={()=>setAddModalIsOpen(!addModalIsOpen)} className="ajouter">
+              <AddCircle size="80"   color='#8A4DD9' variant="Bulk"/>
+            </div>
             </div>
         )}
       </>

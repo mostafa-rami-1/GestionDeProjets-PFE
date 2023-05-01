@@ -34,6 +34,8 @@ export const StateContext = createContext({
 
     refresh: false,
     setRefresh: () => { },
+    addModalIsOpen: false,
+    setAddModalIsOpen:()=>{},
 
     deleteModaIsOpen: false,
     setDeleteModalIsOpen: () => { },
@@ -66,6 +68,7 @@ const ContextProvider = ({ children }) => {
     //modals
     const [profileModaIsOpen, setProfileModalIsOpen] = useState(false)
     const [languageModaIsOpen, setLanguageModalIsOpen] = useState(false)
+    const [addModalIsOpen,setAddModalIsOpen]=useState(false)
     const [deleteModaIsOpen, setDeleteModalIsOpen] = useState(false)
     const [descriptionModalIsOpen, setDescriptionModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
@@ -134,6 +137,9 @@ const ContextProvider = ({ children }) => {
             refresh,
             setRefresh,
 
+            addModalIsOpen,
+            setAddModalIsOpen,
+            
             deleteModaIsOpen,
             setDeleteModalIsOpen,
 

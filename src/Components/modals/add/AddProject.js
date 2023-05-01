@@ -1,96 +1,59 @@
-import React,{useContext, useEffect, useState,useRef} from 'react'
+import { Back } from 'iconsax-react'
+import React,{useState,useContext,useEffect,useRef} from 'react'
 import axiosClient from '../../../axios'
 import { StateContext } from '../../../ContextProvider'
-import statues from '../../projects/ProjectStatus'
-import {Back} from "iconsax-react"
-import './editModal.css'
-import Search from '../../sub-components/search/Search'
 import MiniLoader from '../../loader/MiniLoader'
+import statues from '../../projects/ProjectStatus'
+import Search from '../../sub-components/search/Search'
 import MessageApi from '../message/Message'
+import '../edit/editModal.css'
 
-const EditModal = ({ id }) => {
-    const { editModalIsOpen, setEditModalIsOpen,membres ,categories,clients ,refresh,setRefresh} = useContext(StateContext)
+export const AddProject = () => {
+  const { addModalIsOpen,projets, setAddModalIsOpen,membres ,categories,clients ,refresh,setRefresh} = useContext(StateContext)
     const [loading, setLoading] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [msg, setMsg] = useState("")
+    const [error,setError]=useState("")
     const [success, setSuccess] = useState(false)
     const [isDataReceived,setIsDataReceived]=useState(true)
     const statutRef= useRef([])    
     const membresRefs = useRef([])
-    const [memberesEdit,setMembresEdit]= useState(membres)
+    const [memberesEdit, setMembresEdit] = useState(membres)
+    const [membresChecked,setMembresChecked]= useState([])
     //data states
-    const [nom, setNom] = useState("")
+    const [nom, setNom] = useState(`projet ${projets.length}`)
     const [description, setDescription] = useState("")
     const [date_livraison, setDatelivraison] = useState("")
     const [id_chef_projet, setId_chef_projet] = useState(null)
-    const [id_client, setId_client] = useState(null)
+    const [id_client, setId_client] = useState(clients[0]?.id_client || null)
     const [cout, setCout] = useState(0.00)
     const [statut, setStatut] = useState(0)
-    const [id_categorie, setId_categorie] = useState(null)
-    const [membresChecked, setMembresChecked] = useState([])
+    const [id_categorie, setId_categorie] = useState(categories[0]?.id_categorie||null)
+  
 
     useEffect(() => {
         setStatut(null)
-        setIsDataReceived(true)
-        if (editModalIsOpen) {
+        setIsDataReceived(false)
+        if (addModalIsOpen) {
+            setMembresChecked([])
             setMembresEdit(membres)
-            axiosClient.get(`/projetMembres/${id}`)
-            .then((response) => {
-                setMembresChecked([])
-                setMembresChecked(response.data)
-            })
-            .catch((e) => console.log(e))
-            axiosClient.get(`projets/${id}`)
-            .then((response) => {
-                setNom(response.data.nom)
-                setCout(response.data.cout)
-                setDatelivraison(response.data.date_livraison)
-                setStatut(response.data.statut)
-                setId_chef_projet(response.data.id_chef_projet)
-                setId_client(response.data.id_client)
-                setDescription(response.data.description)
-                setId_categorie(response.data.id_categorie)
-                setIsDataReceived(false)
-            })
         }
-        
-    }, [editModalIsOpen])
+    }, [addModalIsOpen])
     
     useEffect(() => {
-        membresRefs.current.forEach((e) => {
-            const idm = parseInt(e?.getAttribute('value'))              
-            if (membresChecked.includes(idm)) {
-                e?.setAttribute("checked", true)
-            }else {
-                e?.removeAttribute("checked")
-            } 
-        })
-    }, [membresChecked])
-   
-    
-    useEffect(() => {
-        statutRef.current.forEach((e) => {
-            const idStatut = parseInt(e?.getAttribute('value'))
-            if (idStatut === statut) {
-                
-                e?.nextElementSibling.classList.add("radio-is-checked")
-            } else {
-                e?.nextElementSibling.classList.remove("radio-is-checked")
-            }
-       })
+        if (statut == null) {
+            statutRef.current[0]?.nextElementSibling.classList.add("radio-is-checked")
+        } else {
+            statutRef.current[0]?.nextElementSibling.classList.remove("radio-is-checked")
+        }
     },[statut])
-    
-    
-    
     const handleMembresChange = (event) => {
         const isChecked = event.target.checked
         const selected_id_membre = parseInt(event.target.value)
-       
-        
         switch (isChecked) {
             case false:
                 setMembresChecked(membresChecked.filter((membre) => membre !== selected_id_membre))
-                console.log("false");
+                
                 break;
             case true:
                 setMembresChecked([... new Set([...membresChecked, selected_id_membre])])
@@ -104,52 +67,51 @@ const EditModal = ({ id }) => {
     }
     
 
-    const handleModify = (e) => {
-
+    const handleAdd = (e) => {
         e.preventDefault()
-      
+        setError("")
             setIsEditing(true)
-            axiosClient.patch(`/projets/${id}`, {
+            axiosClient.post(`/projets`, {
                 nom,
-                description,
+                description: description || `projet ${projets.length}` ,
                 date_livraison,
                 id_chef_projet,
                 id_client,
                 cout,
-                statut,
+                statut: statut || 0,
                 id_categorie,
-                membres: membresChecked
+                membres: membresChecked,
+                id_projet:201
             }).then((response) => {
                 setRefresh(!refresh)
                 setSuccess(true)
-                setMsg(response.data.message)
+                setMsg("projet creer avec success")
+                setTimeout(() => {
+                    setAddModalIsOpen(false)
+                    setMsg("")
+                }, 1500);
             })
             .catch((e) => {
                     setSuccess(false)
-                    setMsg("Erreur ): ")
-                    console.log(e)
+                    setError(e.response.data.message)
+                    
             }).finally(() => {
-                    setIsEditing(false)
-                    setTimeout(() => {
-                    setEditModalIsOpen(false)
-                    setMsg("")
-                }, 1500);
+                setIsEditing(false)
             })
        
     }
     
   
   return (
-      <div className={editModalIsOpen ? 'show' : 'hide'}>
+      <div className={addModalIsOpen ? 'show' : 'hide'}>
           {msg ? <div className="edit-center-loading">
               <MessageApi msg={msg} success={success} />
           </div> : 
             (
             <form className='edit-form'>
-                      <span className='hide-edit' onClick={() => {
-                          setMembresChecked([])
-                          
-                            setEditModalIsOpen(false)
+                <span className='hide-edit' onClick={() => {
+                        setMembresChecked([])
+                        setAddModalIsOpen(false)
                       }}>
                     <Back size="32" color="#ff8a65" />
                 </span>  
@@ -161,7 +123,9 @@ const EditModal = ({ id }) => {
                           <input className='input' type="text" id='nomProjet' value={nom}
                               onChange={(e)=>setNom(e.target.value)}
                           />
+                          
                     </div>
+                    <p style={{color:"red"}}>{error}</p>   
                     
                     <div className="edit-statut-projet radio">
                         <h4>Statut</h4>       
@@ -269,7 +233,7 @@ const EditModal = ({ id }) => {
                     </textarea>
                 </div>
                 <div className="submit-edit">
-                          {isEditing ? <MiniLoader /> : <input onClick={handleModify} type="submit" value="Modifier ce projet" disabled={isDataReceived} />}         
+                          {isEditing ? <MiniLoader /> : <input onClick={handleAdd} type="submit" value="Ajouter ce projet" disabled={isDataReceived} />}         
                 </div>  
             </form>    
             )
@@ -279,5 +243,3 @@ const EditModal = ({ id }) => {
     </div>
   )
 }
-
-export default React.memo(EditModal)
