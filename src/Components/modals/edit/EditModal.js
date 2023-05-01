@@ -242,7 +242,7 @@ const EditModal = ({ id }) => {
 
               <div className="edit-membres-projet">
                           <h4 className='edit-membre-title'>Membres</h4>
-                          <Search searchMembre={searchMembre} />
+                          <Search searchCloser={searchMembre} />
                           <div className="edit-membres-projet-membres-container">
                             {memberesEdit && memberesEdit.map((membre,index) => {
                                 return (

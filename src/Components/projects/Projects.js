@@ -8,18 +8,20 @@ import LoadingMarkup from '../loader/LoadingMarkup';
 import "./projetcs.css"
 import { Description } from '../modals/description/Description';
 import EditModal from '../modals/edit/EditModal';
+import Search from '../sub-components/search/Search';
 
 
 
 export default function Projects() {
   const [loading, setLoading] = useState(false)
-  const { idProjet, refresh,setRefresh, projets, setProjets ,membres,setMembres, clients,setClients,categories,setCategories,setDataFetched} = useContext(StateContext)
+  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched } = useContext(StateContext)
+  const [projetsFetched , setProjetsFetched] = useState(projets)
   const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets]);
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
   const fetchCategories = useCallback(() => axiosClient.get("/categories"), [categories])
   const fetchClients = useCallback(()=>axiosClient.get("/clients"),[clients])
 
-  
+ 
   useEffect(() => {
     if (!projets.length) {
       async function fetchProjetsData() {
@@ -30,6 +32,7 @@ export default function Projects() {
           const categoriesData = await fetchCategories()
           const clientsData= await fetchClients()
           setProjets(projetsData.data)
+          setProjetsFetched(projetsData.data)
           setMembres(membresData.data)
           setCategories(categoriesData.data)
           setClients(clientsData.data)
@@ -47,21 +50,27 @@ export default function Projects() {
   }, [refresh])
 
   useEffect(() => {
-    axiosClient.get("/projets").then((response)=>setProjets(response.data))
+    axiosClient.get("/projets").then((response) => {
+      setProjets(response.data)
+      setProjetsFetched(response.data)
+    })
   },[refresh])
-  
+  const searchProject = (e) => {
+        setProjetsFetched(projets.filter((p) =>( p.nom.toLocaleLowerCase().includes(e))))
+    }
   const { t } = useTranslation()
   
   return (
     <>
       <h1>{t("Projets")}</h1>
+      <Search searchCloser={searchProject}/>
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">
             <Delete id={idProjet} />
             <Description />
             <EditModal id={idProjet}/>
-            {projets.map((projet) => { 
+            {projetsFetched.map((projet) => { 
               const id = projet.id_projet
               const nom = projet.nom
               const description = projet.description

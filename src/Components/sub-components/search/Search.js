@@ -1,9 +1,8 @@
 import React from 'react'
 import './search.css'
-const Search = ({ searchMembre }) => {
+const Search = ({ searchCloser }) => {
    const handleSearch = (event) => {
-    const searchTerm = event.target.value;
-    searchMembre(searchTerm);
+    searchCloser(event.target.value)
   };
   return (
       <div className="search">

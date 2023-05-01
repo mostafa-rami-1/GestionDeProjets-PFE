@@ -64,6 +64,12 @@ section>h1 {
     width: 100%;
 
 }
+section > .search{
+    position: fixed;
+    left: 275px;
+    top: 140px;
+    z-index: 3;
+}
 
 
 .mainRtl{
@@ -73,7 +79,8 @@ section>h1 {
     width: 100%;
     height: fit-content;
     padding: 10px;
-    margin-bottom: 40px;
+    margin-top: 40px;
+    margin-bottom: 60px;
     display: flex;
     align-items: center;
     gap: 30px;
@@ -137,6 +144,10 @@ section>h1 {
     }
     .content-container > div{
         width: 100%;
+    }
+    section>.search {
+        left: 60px;
+        top: 130px;
     }
 }
 

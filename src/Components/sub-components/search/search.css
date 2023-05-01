@@ -24,6 +24,8 @@
     transition: border-radius 0.5s ease;
     background: var(--input-bg, #fff);
     margin-block-end: 10px;
+    background: #eeeeee69;
+    
 }
 
 /* styling of Input */
