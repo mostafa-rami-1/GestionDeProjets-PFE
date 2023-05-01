@@ -1,0 +1,183 @@
+.edit-form{
+    width: 200%;
+}
+.edit-form,.edit-center-loading{
+    background: white;
+       
+        border-radius: 5px;
+        border: 1px solid;
+        padding: 10px;
+        position: relative;
+        margin-block-start:20px ;
+    scale: 0.7;
+}
+.edit-form textarea{
+    width: 90%;
+    height: 200px;
+    padding: 5px;
+    border: 0.5px solid #ccc;
+    outline: none;
+    resize: none;
+    font-size: 17px;
+}
+.edit-center-loading{
+    
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editModal{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;   
+}
+
+
+.edit-right-side,.edit-left-side {
+   color: rgb(111, 36, 208);
+   font-weight: bolder;
+   width: 100%;
+}
+
+.edit-nom-projet,
+.edit-categorie-projet,
+.edit-client-projet,.edit-dateLivraison-projet,
+.edit-cout-projet,
+.edit-statut-projet,
+.edit-chef-projet,
+.edit-description-projet
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-block: 20px;
+}
+.edit-description-projet{
+    flex-direction: column;
+}
+.edit-statut-projet{
+    flex-wrap: wrap;
+}
+#statut-projet-title{
+    width: 100%;
+}
+.edit-membres-projet-membres-container{
+    width: 100%;
+    min-height:220px ;
+    max-height: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    overflow-y: scroll;
+}
+.membre-check-box{
+    width: 20%;
+ 
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+}
+.edit-membre-title{
+    width: 100%;
+   color: rgb(111, 36, 208);
+}
+.statut-projet-title{
+    color: #ff6360
+}
+.hide-edit{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(238, 237, 237);
+    margin: 2px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+
+
+.input-nom{
+   width: 30% !important;
+border: 1px !important;
+}
+
+.edit-cout-projet input{
+text-align: center;
+}
+
+@media (min-width: 1050px) {
+.edit-right-side,
+    .edit-left-side{
+        margin-top: 40px !important;
+    }
+    
+
+}
+
+
+@media (max-width: 667px) {
+    .edit-form,.edit-center-loading {
+            width: 100%;
+            scale: 0.62;
+        }
+
+    .editModal{
+        flex-direction: column;
+    }
+    .edit-form textarea {
+        width: 90%;
+    }
+    .edit-nom-projet{
+        margin-top: 70px !important;
+    }
+    .edit-membres-projet-membres-container{
+        column-gap: 50px;
+        max-height: 100px;
+    }
+    .membre-check-box{
+            gap: 10px;
+            justify-content: center;
+        }
+
+    .hide-edit {
+        margin-block: 20px;
+    }
+    .edit-statut-projet div{
+        flex-direction: column;
+    }
+    
+}
+
+
+@media (min-width: 700px) and (max-width : 700px) {
+
+    .edit-form,
+    .edit-center-loading {
+        width: 100%;
+        scale: 0.8;
+    }
+}
+
+
+
+
+
+
+.radio-is-checked {
+    box-shadow: 0 0 0 0.0625em #0043ed !important;
+    background-color: #dee7ff !important;
+    z-index: 1 !important;
+    color: #4f00ed !important;
+}

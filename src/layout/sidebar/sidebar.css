@@ -1,0 +1,69 @@
+.sidebar{
+    width: 246px;
+    height: 100%;
+    padding: 10px;
+    box-shadow: 1px 0 20px 1px #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 12px;
+    cursor: pointer;
+}
+.logoIcon {
+    width: 35px;
+    height: 30px;
+}
+
+.sidebar ul{
+    display: flex;
+        flex-direction: column;
+        gap: 21px;
+}
+
+.sidebar ul a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    padding: 8px;
+}
+.sidebar ul a:hover{
+    background-color: #eee;
+    border-radius: 10px;
+}
+.itemSelected{
+    color: #fff;
+    background-color: #8A4DD9 !important;
+    border-radius: 10px;
+}
+
+a{
+    text-decoration: none !important;
+    font-size: 15px;
+    display: inline-block;
+    width: 100%;
+}
+
+.sideBarRtl{
+    right:0
+}
+
+@media  (max-width: 650px){
+    .sidebar{
+        width: fit-content;
+    }
+    .sidebarItemText{
+        display: none;
+    }
+    .NomLogo{
+        display: none;
+    }
+}

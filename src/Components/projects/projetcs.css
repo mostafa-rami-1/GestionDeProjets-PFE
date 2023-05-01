@@ -1,0 +1,106 @@
+.projetCarte img{
+    width: 20px;
+    height: 20px;
+}
+.projetCarte{
+    width: 264px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 21%;
+    box-shadow: 0 4px 6px 0px rgb(190, 189, 189);
+    border-top: 3px solid #ff6360;
+}
+.projetCarte:hover {
+    scale: 1.004;
+    box-shadow: 0 4px 6px 1px rgb(190, 189, 189);
+}
+.projetCarte > *{
+    margin-top: 4px;
+}
+.projetCarte h4,h5,h3{
+    text-align: center;
+}
+.projetCarte h3 {
+    color: #824fbc;
+    font-size: 15px;
+}
+.projetCarte h4 {
+    color: #594f8c;
+    font-size: 12px;
+    font-weight: 600;
+    
+}
+.projetCarte h5 {
+    font-size: 10px;
+    color: rgba(0, 0, 0,80%);
+    font-weight: 500;
+}
+
+.membresProjet{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+.membreProjet,.chef{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.membreProjet{
+    width: 29.33%;
+}
+.detailProjet{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+.detailProjet h4,
+.detailProjet h5 {
+    text-align: left;
+}
+.detailProjet h5{
+    margin-block-end: 3px;
+}
+.detailProjet1 > * {
+   padding-right: 20px;
+}
+
+.actions-projet{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.actions-projet>*{
+    scale: 1;
+   padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.actions-projet>*:hover{
+    background-color: rgb(246, 245, 245);
+}
+.detailProjet1,.detailProjet2{
+    width: 50%;
+}
+.statut {
+    color: red !important;
+}
+@media (max-width: 1000px){
+    .projetCarte{
+        width: 40%;
+    }
+}
+@media (min-width: 1000px){
+    .projetCarte{
+        width: 30%;
+    }
+}
+
+
+

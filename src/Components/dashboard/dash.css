@@ -1,0 +1,124 @@
+.container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.table{
+    background: black;
+    position: absolute;
+    bottom: 0;
+}
+.cards{
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+   
+}
+.cards > div{
+    display: flex;
+    flex-direction: column;
+   justify-content: space-between;
+    border-radius: 10px;
+    width: 336px;
+    height: 188px;
+    padding-inline: 15px;
+    padding-block: 30px;
+    box-shadow: 0 3px 5px 1px rgba(0,0,0,0.45);
+    cursor: pointer;
+    opacity: 0.85;
+}
+.cards > div:hover{
+    scale: 1.01;
+    box-shadow: 0 3px 10px 2px rgba(0,0,0,0.45);
+    opacity: 0.8;
+}
+.cards >div>p{
+    font-size: 30px;
+    color: #fff;
+    text-shadow: 0 4px 10px  rgba(0,0,0,0.5);
+}
+.cards >div>p:last-child{
+   text-align: end;
+
+}
+.projectsCard{
+    background: #594f8c;
+}
+
+.tasksCard{
+    background: #bc4f8f;
+
+}
+
+.membersCard{
+    background: #ff6360;
+}
+
+.stats{
+    display: flex;
+    width: 100%;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+}
+.stat{
+    width: 400px;
+    height: 280px;
+    border-radius: 10px;
+    padding: 10px;
+    border-top: 6px solid #ff6360;
+    box-shadow: 0 4px 7px 1px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.stat:hover{
+    scale: 1.005;
+}
+.stat > div{
+    height: 230px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stat > h4{
+    font-weight: normal;
+}
+.chart-container{
+    padding: 10px;
+}
+.chart{
+    background: #000;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+
+@media (max-width: 1050px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 44px;
+    }
+    .cards > div{
+        width: 90%;
+        height: 150px;
+    }
+}
+@media (min-width: 1050px) {
+    .cards {
+        flex-wrap: nowrap;
+    }
+
+}

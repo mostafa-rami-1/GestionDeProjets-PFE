@@ -1,0 +1,17 @@
+{
+    "code":"en",
+    "lng" : "language",
+    "Tableau de bord":"Dashboard",
+    "Projets":"Projects",
+    "Taches":"Tasks",
+    "Membres":"Members",
+    "Rapports" :"Reports",
+    "mot de passe" : "password",
+    "s'identifier" : "login",
+    "Le champ souvenir doit être vrai ou faux" : "The remember field must be true or false",
+    "S'il vous plaît, mettez une adresse email valide":"Please enter a valid email address",
+    "Le champ mot de passe est obligatoire":"The password field is required",
+    "Le champ email est obligatoire" : "The email field is required",
+    "les informations fournies sont incorrectes":"the provided information is incorrect"
+    
+}

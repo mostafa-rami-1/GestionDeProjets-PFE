@@ -1,0 +1,19 @@
+.msg {
+    display:  flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+}
+.msg-success{
+    color: #8A4DD9 ;
+    
+}
+.msg-fail{
+    color: red;
+}
+
+.msg img{
+    height: 100px !important;
+    width: 100px !important;
+}

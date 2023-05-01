@@ -1,0 +1,131 @@
+
+.nav{
+
+    width: calc(100vw - 246px);
+    height: 60px;
+    padding-inline: 20px;
+    box-shadow: 0 3px 1px 1px #eee;
+   margin-inline-start: 246px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 4;
+}
+
+.col {
+    background-color: #8A4DD9;
+}
+
+.NomLogo {
+    font-size: 20px;
+}
+
+.navItems{
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+#profileImage{
+  display: inline-block;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.profile ,.lang{
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    padding: 0px;
+    position: relative;
+}
+.lang {
+    padding: 3px;
+}
+.profile:hover,
+.lang:hover{
+    background: rgb(240, 239, 239);
+    border-radius: 5px;
+
+}
+.profileModal{
+    position: absolute;
+    top: 40px;
+    right:10px;
+    width : 165px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+}
+.toProfile , .logout , .languageModal button{
+    padding: 5px;
+    color: #fff;
+    width: 100%;
+    display: inline-block;
+    height: 30px;
+    background: #8A4DD9;
+    border: none;
+    text-align: left;
+    cursor:pointer;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+ .languageModal button{
+    text-align: center;
+    justify-content: center;
+ }
+.toProfile:hover,
+.logout:hover{
+    background: rgba(90, 49, 143, 0.9);
+}
+.toProfile{
+    border-bottom: 1px solid #fff;
+}
+.logout{
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.languageModal{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 40px;
+        left: 10px;
+        padding: 5px;
+        gap: 5px;
+        background: #fff;
+        border-radius: 5px;
+        z-index: 88;
+}
+
+#profileName{
+    height: 100%;
+    width: 100%;
+    padding: 3px;
+}
+
+.navRtl{
+    right: 246px;
+}
+@media (max-width: 650px) {
+    .nav{
+        margin-inline-start: 57px;
+        width: calc(100vw - 57px);
+    }
+    .navRtl{
+        margin-inline-end:57px
+    }
+}
+
+
+/* #hiddenBtn {
+    visibility: hidden;
+} */
+
