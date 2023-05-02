@@ -85,8 +85,6 @@ const EditModal = ({ id }) => {
     const handleMembresChange = (event) => {
         const isChecked = event.target.checked
         const selected_id_membre = parseInt(event.target.value)
-       
-        
         switch (isChecked) {
             case false:
                 setMembresChecked(membresChecked.filter((membre) => membre !== selected_id_membre))
@@ -248,11 +246,10 @@ const EditModal = ({ id }) => {
                                             type="checkbox"
                                             id={membre.id_membre}
                                             value={membre.id_membre}
-                                           
                                             onClick={handleMembresChange}
-                                     
                                             ref={(el) => membresRefs.current[index] = el}
                                             />
+                                            
                                             <div className="checkmark"></div>
                                         </label>
                                     </div>

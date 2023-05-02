@@ -55,6 +55,7 @@ export default function Projects() {
     axiosClient.get("/projets").then((response) => {
       setProjets(response.data)
       setProjetsFetched(response.data)
+      console.log(projetsFetched);
     })
   },[refresh])
   const searchProject = (e) => {
@@ -77,7 +78,7 @@ export default function Projects() {
               const id = projet.id_projet
               const nom = projet.nom
               const description = projet.description
-              const chef =  projet.chef
+              const chef =  projet.chef_projet.nom
               const membres = projet.membres
               const dateCreationObj = new Date(projet.created_at);
               const dateCreation = `${dateCreationObj.getFullYear()}-${dateCreationObj.getMonth()+1}-${dateCreationObj.getDate()}`

@@ -24,11 +24,11 @@ export const AddProject = () => {
     const [nom, setNom] = useState(`projet ${projets.length}`)
     const [description, setDescription] = useState("")
     const [date_livraison, setDatelivraison] = useState("")
-    const [id_chef_projet, setId_chef_projet] = useState(null)
+    const [id_chef_projet, setId_chef_projet] = useState(membres[0]?.id_membre||membres.length)
     const [id_client, setId_client] = useState(clients[0]?.id_client || null)
     const [cout, setCout] = useState(0.00)
     const [statut, setStatut] = useState(0)
-    const [id_categorie, setId_categorie] = useState(categories[0]?.id_categorie||null)
+    const [id_categorie, setId_categorie] = useState(categories[0]?.id_categorie||categories.length)
   
 
     useEffect(() => {
@@ -81,7 +81,7 @@ export const AddProject = () => {
                 statut: statut || 0,
                 id_categorie,
                 membres: membresChecked,
-                id_projet:201
+               
             }).then((response) => {
                 setRefresh(!refresh)
                 setSuccess(true)
@@ -205,12 +205,12 @@ export const AddProject = () => {
                           <div className="edit-membres-projet-membres-container">
                             {memberesEdit && memberesEdit.map((membre,index) => {
                                 return (
-                                    <div key={membre.id_membre} className='membre-check-box'>
+                                    <div key={membre.id_membre+3} className='membre-check-box'>
                                         <span>{`${membre.prenom} ${membre.nom}`}</span>
-                                        <label htmlFor={membre.id_membre} className="container-checkbox">
+                                        <label htmlFor={membre.id_membre+3} className="container-checkbox">
                                             <input
                                             type="checkbox"
-                                            id={membre.id_membre}
+                                            id={membre.id_membre+3}
                                             value={membre.id_membre}
                                            
                                             onClick={handleMembresChange}
@@ -237,8 +237,6 @@ export const AddProject = () => {
                 </div>  
             </form>    
             )
-            
-            
             }
     </div>
   )
