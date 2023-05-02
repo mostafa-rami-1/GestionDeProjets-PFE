@@ -10,10 +10,8 @@ import statues from './ProjectStatus'
 
 const ProjectCard = ({ id, nom, chef, description, membres, dateCreation, dateLivraison, categorie, client, statut, cout }) => {
     const [currentUser , setCurrentUser]= useState(JSON.parse(localStorage.getItem("currentUser")))
-    console.log(currentUser);
-    console.log(chef);
-    console.log(currentUser.id_membre);
-    console.log(chef.id_membre);
+   
+
     
     const { deleteModaIsOpen, setDeleteModalIsOpen ,descriptionModalIsOpen,setDescriptionModalIsOpen,editModalIsOpen,setEditModalIsOpen,setProjectDescription,setIdProjet} = useContext(StateContext)
     const openDeleteModal = (id) => {
@@ -71,7 +69,10 @@ const ProjectCard = ({ id, nom, chef, description, membres, dateCreation, dateLi
           <div className="actions-projet">
             {(localStorage.getItem("role") === "admin" || chef.id_membre===currentUser.id_membre)
                 &&
-                <Trash size="32" color="#ff0000" onClick={() => openDeleteModal(id)}
+                      <Trash size="32" color="#ff0000" onClick={() => {
+                       
+                          openDeleteModal(id)
+                      }}
             />}
                   
             <ReceiptText

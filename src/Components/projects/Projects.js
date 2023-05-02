@@ -17,9 +17,11 @@ import { AddProject } from '../modals/add/AddProject';
 
 export default function Projects() {
   const [loading, setLoading] = useState(false)
-  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched, addModalIsOpen, setAddModalIsOpen} = useContext(StateContext)
+  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched, addModalIsOpen, setAddModalIsOpen,chefProjet} = useContext(StateContext)
 
-  const [projetsFetched , setProjetsFetched] = useState(projets)
+  const [projetsFetched, setProjetsFetched] = useState(projets)
+  const [currentUser , setCurrentUser]= useState(JSON.parse(localStorage.getItem("currentUser")))
+  
   const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets]);
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
   const fetchCategories = useCallback(() => axiosClient.get("/categories"), [categories])
@@ -71,10 +73,21 @@ export default function Projects() {
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">
-            {(localStorage.getItem("role")==="admin") && <AddProject/>}
-            {(localStorage.getItem("role")==="admin") && <Delete id={idProjet} />}
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet" )
+              &&
+              <AddProject />
+            }
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet")
+              &&
+              <Delete id={idProjet} />
+            }
+            
             <Description />
-            {(localStorage.getItem("role")==="admin") && <EditModal id={idProjet}/>}
+
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet")
+              &&
+              <EditModal id={idProjet} />}
+            
             {projetsFetched.map((projet) => { 
               const id = projet.id_projet
               const nom = projet.nom
@@ -103,7 +116,9 @@ export default function Projects() {
                 cout={cout}
               />
             })}
-            {localStorage.getItem("role")==="admin" && <div onClick={()=>setAddModalIsOpen(!addModalIsOpen)} className="ajouter">
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet")
+              &&
+            <div onClick={() => setAddModalIsOpen(!addModalIsOpen)} className="ajouter">
               <AddCircle size="80"   color='#8A4DD9' variant="Bulk"/>
             </div>}
             </div>

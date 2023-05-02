@@ -9,6 +9,7 @@ import MessageApi from '../message/Message'
 import '../edit/editModal.css'
 
 export const AddProject = () => {
+    
   const { addModalIsOpen,projets, setAddModalIsOpen,membres ,categories,clients ,refresh,setRefresh} = useContext(StateContext)
     const [loading, setLoading] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
@@ -24,7 +25,7 @@ export const AddProject = () => {
     const [nom, setNom] = useState(`projet ${projets.length}`)
     const [description, setDescription] = useState("")
     const [date_livraison, setDatelivraison] = useState("")
-    const [id_chef_projet, setId_chef_projet] = useState(membres[0]?.id_membre||membres.length)
+    const [id_chef_projet, setId_chef_projet] = useState(JSON.parse(localStorage.getItem("currentUser")).id_membre||membres[0]?.id_membre||membres.length)
     const [id_client, setId_client] = useState(clients[0]?.id_client || null)
     const [cout, setCout] = useState(0.00)
     const [statut, setStatut] = useState(0)
@@ -83,6 +84,7 @@ export const AddProject = () => {
                 membres: membresChecked,
                
             }).then((response) => {
+                console.log(response.data);
                 setRefresh(!refresh)
                 setSuccess(true)
                 setMsg("projet creer avec success")
@@ -177,7 +179,7 @@ export const AddProject = () => {
                                 }
                         </select>
                       </div>
-                      <div className="edit-chef-projet">
+                      {localStorage.getItem("role")==="admin" && <div className="edit-chef-projet">
                           <label htmlFor="chef-projet-select">Chef de projet</label>
                           <select className='select' onChange={(e)=>setId_chef_projet(e.target.value)}  id="chef-projet-select"  defaultValue={0}>
                             {membres && membres.map((membre) => {
@@ -185,7 +187,7 @@ export const AddProject = () => {
                                 })
                             }
                         </select>
-                      </div>
+                      </div>}
                       <div className="edit-cout-projet">
                           <label htmlFor="cout">Cout</label>
                                   <input className='input' type="text" id='cout' inputMode='numeric' value={cout} onChange={(e) => {
