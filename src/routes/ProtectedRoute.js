@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import {useNavigate} from "react-router-dom";
 
-import { useIsAuthenticated} from 'react-auth-kit'
+import { useIsAuthenticated } from 'react-auth-kit'
 import { memo } from 'react';
 const ProtectedRoute = ({ component: Component, loginPath, ...rest }) => {
   const isAuthenticated= useIsAuthenticated();

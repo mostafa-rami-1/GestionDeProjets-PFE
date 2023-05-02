@@ -8,11 +8,11 @@ import { useSignOut } from 'react-auth-kit'
 
 const ProfileModal = () => {
    const signOut = useSignOut()
-  const { setCurrentUser, setUserToken,path,setPath } = useContext(StateContext)
+  const { setPath,setRole ,setCurrentUser} = useContext(StateContext)
   const logout = () => {
     axiosClient.post("/logout").then(({ data }) => {
-      signOut()
       setPath("dashboard")
+      signOut()
     }).catch((error) => console.log(error.response.data.message))  
   }
   return (

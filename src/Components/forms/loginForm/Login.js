@@ -3,14 +3,14 @@ import React,{useState,useContext, memo } from "react";
 
 import { useTranslation } from "react-i18next";
 import axiosClient from "../../../axios";
-import { useSignIn } from 'react-auth-kit'
+import {  useSignIn } from 'react-auth-kit'
 import "./login.css"
 import { StateContext } from "../../../ContextProvider";
 import MiniLoader from "../../loader/MiniLoader";
 
+
 const LoginForm = () => {
   const {refresh ,setRefresh} = useContext(StateContext)
-
     const signIn = useSignIn()
     const { t } = useTranslation()
     const [isLoading , setIsLoading] = useState(false)
@@ -33,8 +33,9 @@ const LoginForm = () => {
                 expiresIn: 3600,
                 tokenType:"Bearer",
             })
+            localStorage.setItem("currentUser",JSON.stringify( data.user))
+            localStorage.setItem("role",data.user.role.nom)
             setRefresh(!refresh)
-            console.log(data);
         })
         .catch((error) => {
             if (error.response) {

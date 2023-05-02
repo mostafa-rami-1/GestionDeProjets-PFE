@@ -7,12 +7,8 @@ import LoadingMarkup from '../loader/LoadingMarkup'
 import { StateContext } from '../../ContextProvider'
 import "./dash.css"
 
-
-
-
 const Dashboard = () => {
-  const [loading, setLoading] = useState(false)
-
+    const [loading, setLoading] = useState(false)
     const fetchMembres = useCallback(() => axiosClient.get(`/membres`), []);
     const fetchProjets = useCallback(() => axiosClient.get(`/projets`), []);
     const fetchTasks = useCallback(() => axiosClient.get(`/taches`), []);
@@ -23,12 +19,15 @@ const Dashboard = () => {
         setMembres,
         dataFetched,
         setDataFetched,
-        refresh,
-        setRefresh
     } = useContext(StateContext)
 
     const { t } = useTranslation()
+
     useEffect(() => {
+       
+    },[])
+    useEffect(() => {
+        
         if (dataFetched === false || !projets.length ) {
             setLoading(true)
             Promise.all([fetchProjets(), fetchMembres(), fetchTasks()])
@@ -50,10 +49,9 @@ const Dashboard = () => {
             {loading ? <div className='loader'><LoadingMarkup /></div>
                 : (
                     <>
-                    <Cards/>
-                    <Stats />
+                        <Cards/>
+                        <Stats />
                     </>
-                    
                 )}
             </>
     )

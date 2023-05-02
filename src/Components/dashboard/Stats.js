@@ -17,8 +17,6 @@ const Stats = () => {
     const tachesAchevés = taches.filter((t) => t.statut === 2).length
     const tachesEnCourse = taches.filter((t) => t.statut === 1).length
     const tachesNonAchevés = taches.filter((t) => t.statut === 0).length
-
-    console.log(projetsAchevés);
     const {t} = useTranslation()
     
     const tachesData = {

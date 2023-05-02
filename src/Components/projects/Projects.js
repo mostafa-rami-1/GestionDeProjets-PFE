@@ -14,9 +14,11 @@ import { AddProject } from '../modals/add/AddProject';
 
 
 
+
 export default function Projects() {
   const [loading, setLoading] = useState(false)
-  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched ,addModalIsOpen,setAddModalIsOpen } = useContext(StateContext)
+  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched, addModalIsOpen, setAddModalIsOpen} = useContext(StateContext)
+
   const [projetsFetched , setProjetsFetched] = useState(projets)
   const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets]);
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
@@ -55,7 +57,6 @@ export default function Projects() {
     axiosClient.get("/projets").then((response) => {
       setProjets(response.data)
       setProjetsFetched(response.data)
-      console.log(projetsFetched);
     })
   },[refresh])
   const searchProject = (e) => {
@@ -70,15 +71,15 @@ export default function Projects() {
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">
-            <AddProject/>
-            <Delete id={idProjet} />
+            {(localStorage.getItem("role")==="admin") && <AddProject/>}
+            {(localStorage.getItem("role")==="admin") && <Delete id={idProjet} />}
             <Description />
-            <EditModal id={idProjet}/>
+            {(localStorage.getItem("role")==="admin") && <EditModal id={idProjet}/>}
             {projetsFetched.map((projet) => { 
               const id = projet.id_projet
               const nom = projet.nom
               const description = projet.description
-              const chef =  projet.chef_projet.nom
+              const chef =  projet.chef_projet
               const membres = projet.membres
               const dateCreationObj = new Date(projet.created_at);
               const dateCreation = `${dateCreationObj.getFullYear()}-${dateCreationObj.getMonth()+1}-${dateCreationObj.getDate()}`
@@ -102,9 +103,9 @@ export default function Projects() {
                 cout={cout}
               />
             })}
-            <div onClick={()=>setAddModalIsOpen(!addModalIsOpen)} className="ajouter">
+            {localStorage.getItem("role")==="admin" && <div onClick={()=>setAddModalIsOpen(!addModalIsOpen)} className="ajouter">
               <AddCircle size="80"   color='#8A4DD9' variant="Bulk"/>
-            </div>
+            </div>}
             </div>
         )}
       </>

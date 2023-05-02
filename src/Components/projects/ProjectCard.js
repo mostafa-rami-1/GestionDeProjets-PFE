@@ -1,4 +1,4 @@
-import React,{useContext,memo} from 'react'
+import React,{useContext,memo, useState} from 'react'
 import profilepng from '../../assets/Profile.png'
 import {Trash ,ReceiptText,Edit} from "iconsax-react"
 import { StateContext } from '../../ContextProvider'
@@ -7,7 +7,14 @@ import statues from './ProjectStatus'
 
 
 
-const ProjectCard = ({id,nom,chef,description,membres,dateCreation,dateLivraison,categorie,client,statut,cout})   => {
+
+const ProjectCard = ({ id, nom, chef, description, membres, dateCreation, dateLivraison, categorie, client, statut, cout }) => {
+    const [currentUser , setCurrentUser]= useState(JSON.parse(localStorage.getItem("currentUser")))
+    console.log(currentUser);
+    console.log(chef);
+    console.log(currentUser.id_membre);
+    console.log(chef.id_membre);
+    
     const { deleteModaIsOpen, setDeleteModalIsOpen ,descriptionModalIsOpen,setDescriptionModalIsOpen,editModalIsOpen,setEditModalIsOpen,setProjectDescription,setIdProjet} = useContext(StateContext)
     const openDeleteModal = (id) => {
         setIdProjet(id)
@@ -26,7 +33,7 @@ const ProjectCard = ({id,nom,chef,description,membres,dateCreation,dateLivraison
             <h4>Chef de projet</h4>
         <div className="chef">
             <img src={profilepng}/>
-            <h5>{chef}</h5>
+            <h5>{chef.nom}</h5>
           </div>
           
           <h4>Membres</h4>
@@ -62,15 +69,21 @@ const ProjectCard = ({id,nom,chef,description,membres,dateCreation,dateLivraison
               </div>
           </div>
           <div className="actions-projet">
-              <Trash size="32" color="#ff0000" onClick={()=>openDeleteModal(id)} />
-                <ReceiptText
-                      size="32" color="#ff8a65" onClick={() => openDescriptionModal(description)}
+            {(localStorage.getItem("role") === "admin" || chef.id_membre===currentUser.id_membre)
+                &&
+                <Trash size="32" color="#ff0000" onClick={() => openDeleteModal(id)}
+            />}
+                  
+            <ReceiptText
+                    size="32" color="#ff8a65" onClick={() => openDescriptionModal(description)}
                   />
-                  <Edit size="32" color="#ba68c8" onClick={() =>
-                  {
-                      setEditModalIsOpen(!editModalIsOpen)
-                      setIdProjet(id)
-                  }} />
+                  
+            {(localStorage.getItem("role")==="admin" || chef.id_membre===currentUser.id_membre) &&
+            <Edit size="32" color="#ba68c8" onClick={() =>
+                {
+                    setEditModalIsOpen(!editModalIsOpen)
+                    setIdProjet(id)
+            }} />}
           </div>
           </div>
           

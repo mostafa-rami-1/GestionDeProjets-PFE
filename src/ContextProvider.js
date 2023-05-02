@@ -51,6 +51,12 @@ export const StateContext = createContext({
 
     idProjet: null,
     setIdProjet: () => { },
+
+    chefProjet: {},
+    setChefProjet: () => { },
+
+    role: null,
+    setRole : ()=>{},
     
     path: window.location.pathname.split("/")[1],
     setPath : () => { },
@@ -77,10 +83,9 @@ const ContextProvider = ({ children }) => {
     const [taches ,setTaches] = useState([])
     const [membres, setMembres] = useState([])
     const [categories, setCategories] = useState([])
-    const [clients,setClients]=useState([])
-    
-   
-
+    const [clients, setClients] = useState([])
+    const [role, setRole] = useState(null)
+    const [chefProjet,setChefProjet]= useState({})
     const [idProjet, setIdProjet] = useState(null)
 
     const [projectDescription, setProjectDescription] = useState("")
@@ -136,6 +141,9 @@ const ContextProvider = ({ children }) => {
 
             refresh,
             setRefresh,
+            
+            role,
+            setRole,
 
             addModalIsOpen,
             setAddModalIsOpen,
@@ -154,6 +162,9 @@ const ContextProvider = ({ children }) => {
            
             idProjet,
             setIdProjet,
+            
+            chefProjet,
+            setChefProjet,
             
             path,
             setPath
