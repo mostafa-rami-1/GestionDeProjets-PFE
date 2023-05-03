@@ -4,8 +4,8 @@ import './delete.css'
 import { StateContext } from '../../../ContextProvider'
 import axiosClient from '../../../axios'
 import MiniLoader from '../../loader/MiniLoader'
-const Delete = ({ id }) => {
-  const { deleteModaIsOpen, setDeleteModalIsOpen, idProjet ,refresh,setRefresh,setDataFetched } = useContext(StateContext)
+const DeleteTask = ({ id }) => {
+  const { deleteTaskModalIsOpen, setDeleteTaskModalIsOpen, idProjet ,refresh,setRefresh,setDataFetched } = useContext(StateContext)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("")
   const deleteProjectRef = useRef(null)
@@ -23,11 +23,11 @@ const Delete = ({ id }) => {
      ).catch((error) =>{console.log(error);})
   }
   const annuler = () => {
-    setDeleteModalIsOpen(false)
+    setDeleteTaskModalIsOpen(false)
   }
   const {t}=useTranslation()
   return (
-    <div className={deleteModaIsOpen?'show':'hide'}>
+    <div className={deleteTaskModalIsOpen?'show':'hide'}>
        <div   className='delete-modal'>
         <div ref={deleteProjectRef} className="actions-delete">
           <p>{t('voulez vous vraiment supprimer? ')}</p>
@@ -41,7 +41,7 @@ const Delete = ({ id }) => {
             <>
               <p id='delete-message'>{message}</p>
             <button id='ok-delete' onClick={() => {
-              setDeleteModalIsOpen(false)
+              setDeleteTaskModalIsOpen(false)
               setMessage("")
               deleteProjectRef.current.className = "actions-delete"
             }}>OK</button>
@@ -54,4 +54,4 @@ const Delete = ({ id }) => {
   )
 }
 
-export default Delete
+export default DeleteTask

@@ -17,10 +17,10 @@ import { AddProject } from '../modals/add/AddProject';
 
 export default function Projects() {
   const [loading, setLoading] = useState(false)
-  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched, addModalIsOpen, setAddModalIsOpen,chefProjet} = useContext(StateContext)
+  const { idProjet, refresh, projets, setProjets, membres, setMembres, clients, setClients, categories, setCategories, setDataFetched, addModalIsOpen, setAddModalIsOpen} = useContext(StateContext)
 
   const [projetsFetched, setProjetsFetched] = useState(projets)
-  const [currentUser , setCurrentUser]= useState(JSON.parse(localStorage.getItem("currentUser")))
+ 
   
   const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets]);
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])

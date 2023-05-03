@@ -47,10 +47,25 @@ export const StateContext = createContext({
     setEditModalIsOpen : () =>{},
 
     projectDescription: "",
-    setProjectDescription : () => { },
+    setProjectDescription: () => { },
+
+    taskDescription: "",
+    setTaskDescription:()=>{},
+
+    addTaskModalIsOpen: false,
+    setAddTaskModalIsOpen:()=>{},
+
+    editTaskModalIsOpen:false,
+    setEditTaskModalIsOpen: () => { },
+    
+    deleteTaskModalIsOpen: false,
+    setDeleteTaskModalIsOpen:()=>{},
 
     idProjet: null,
     setIdProjet: () => { },
+
+    idTache:null,
+    setIdTache: () => { },
 
     chefProjet: {},
     setChefProjet: () => { },
@@ -78,6 +93,11 @@ const ContextProvider = ({ children }) => {
     const [deleteModaIsOpen, setDeleteModalIsOpen] = useState(false)
     const [descriptionModalIsOpen, setDescriptionModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
+
+    const [addTaskModalIsOpen, setAddTaskModalIsOpen] = useState(false)
+    const [editTaskModalIsOpen, setEditTaskModalIsOpen] = useState(false)
+    const [deleteTaskModalIsOpen, setDeleteTaskModalIsOpen] = useState(false)
+    const [taskDescription,setTaskDescription]=useState("")
     
     const [projets ,setProjets] = useState([])
     const [taches ,setTaches] = useState([])
@@ -87,6 +107,7 @@ const ContextProvider = ({ children }) => {
     const [role, setRole] = useState(null)
     const [chefProjet,setChefProjet]= useState({})
     const [idProjet, setIdProjet] = useState(null)
+    const [idTache,setIdTache] = useState(null)
 
     const [projectDescription, setProjectDescription] = useState("")
     const  [dataFetched,setDataFetched] = useState(false	)
@@ -157,17 +178,27 @@ const ContextProvider = ({ children }) => {
             editModalIsOpen,
             setEditModalIsOpen,
 
+            editTaskModalIsOpen,
+            setEditTaskModalIsOpen,
+            addTaskModalIsOpen,
+            setAddTaskModalIsOpen,
+            deleteTaskModalIsOpen,
+            setDeleteTaskModalIsOpen,
+            taskDescription,
+            setTaskDescription,
+
             projectDescription,
             setProjectDescription,
            
             idProjet,
             setIdProjet,
+
+            idTache,
+            setIdTache,
             
             chefProjet,
             setChefProjet,
             
-            
-
             path,
             setPath
        
