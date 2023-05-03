@@ -179,12 +179,12 @@ export const AddTask = () => {
                           <div className="edit-membres-projet-membres-container">
                             {memberesEdit && memberesEdit.map((membre,index) => {
                                 return (
-                                    <div key={membre.id_membre+3} className='membre-check-box'>
+                                    <div key={membre.id_membre+39} className='membre-check-box'>
                                         <span>{`${membre.prenom} ${membre.nom}`}</span>
                                         <label htmlFor={membre.id_membre+3} className="container-checkbox">
                                             <input
                                             type="checkbox"
-                                            id={membre.id_membre+3}
+                                            id={membre.id_membre+39}
                                             value={membre.id_membre}
                                            
                                             onClick={handleMembresChange}

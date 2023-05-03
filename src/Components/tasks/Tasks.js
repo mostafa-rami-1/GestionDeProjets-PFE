@@ -1,18 +1,18 @@
 import React ,{useEffect ,useState,useContext,useCallback} from 'react'
 import axiosClient from "../../axios"
-import Delete from '../modals/delete/Delete'
+
 import { useTranslation } from 'react-i18next';
 import { StateContext } from '../../ContextProvider';
 import LoadingMarkup from '../loader/LoadingMarkup';
 import { Description } from '../modals/description/Description';
-import EditModal from '../modals/edit/EditModal';
+
 import Search from '../sub-components/search/Search';
 import { AddCircle } from 'iconsax-react';
-import { AddProject } from '../modals/add/AddProject';
+
 import TaskCard from './TaskCard';
 import "./tasks.css"
 import { AddTask } from '../modals/add/AddTask';
-import DeleteTask from '../modals/delete/Delete';
+import DeleteTask from '../modals/delete/deleteTask/DeleteTask';
 import EditTask from '../modals/edit/editTask/EditTask';
 
 
@@ -22,7 +22,6 @@ export default function Tasks() {
   const {taches,setTaches,idTache,membres,setMembres,refresh,setAddTaskModalIsOpen,addTaskModalIsOpen , projets,setProjets} = useContext(StateContext)
 
   const [tachesFetched, setTachesFetched] = useState(taches)
-  const [currentUser , setCurrentUser]= useState(JSON.parse(localStorage.getItem("currentUser")))
   
   const fetchTaches = useCallback(() => axiosClient.get(`/taches`), [taches]);
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])

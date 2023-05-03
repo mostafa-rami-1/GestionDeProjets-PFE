@@ -209,10 +209,10 @@ export const AddProject = () => {
                                 return (
                                     <div key={membre.id_membre+3} className='membre-check-box'>
                                         <span>{`${membre.prenom} ${membre.nom}`}</span>
-                                        <label htmlFor={membre.id_membre+3} className="container-checkbox">
+                                        <label htmlFor={membre.id_membre+399} className="container-checkbox">
                                             <input
                                             type="checkbox"
-                                            id={membre.id_membre+3}
+                                            id={membre.id_membre+399}
                                             value={membre.id_membre}
                                            
                                             onClick={handleMembresChange}
