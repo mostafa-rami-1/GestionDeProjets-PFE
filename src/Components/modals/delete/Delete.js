@@ -23,7 +23,7 @@ const Delete = ({ id }) => {
      ).catch((error) =>{console.log(error);})
   }
   const annuler = () => {
-    deleteModaIsOpen(false)
+    setDeleteModalIsOpen(false)
   }
   const {t}=useTranslation()
   return (

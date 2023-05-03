@@ -22,7 +22,7 @@ export const AddTask = () => {
     const [memberesEdit, setMembresEdit] = useState(membres)
     const [membresChecked,setMembresChecked]= useState([])
     //data states
-    const [nom, setNom] = useState(`projet ${taches.length}`)
+    const [nom, setNom] = useState("")
     const [description, setDescription] = useState("")
     const [dateDebut, setDateDebut] = useState("")
     const [dateFin, setDateFin] = useState("")

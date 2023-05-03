@@ -41,6 +41,7 @@ const EditTask = ({ id }) => {
             .then((response) => {
                 setMembresChecked([])
                 setMembresChecked(response.data)
+                
             })
             .catch((e) => console.log(e))
             axiosClient.get(`taches/${id}`)
@@ -120,6 +121,7 @@ const EditTask = ({ id }) => {
                 setRefresh(!refresh)
                 setSuccess(true)
                 setMsg(response.data.message)
+                console.log(response.data);
             })
             .catch((e) => {
                     setSuccess(false)
