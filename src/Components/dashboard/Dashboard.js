@@ -28,7 +28,7 @@ const Dashboard = () => {
     },[])
     useEffect(() => {
         
-        if (dataFetched === false || !projets.length ) {
+        if (dataFetched === false || !projets.length>0 ) {
             setLoading(true)
             Promise.all([fetchProjets(), fetchMembres(), fetchTasks()])
             .then((responses) => {
@@ -41,12 +41,12 @@ const Dashboard = () => {
             .catch((error) => { console.log(error.response.data) })
             .finally(() => setLoading(false));
         }
-    }, [dataFetched ,projets,loading]);
+    }, [dataFetched ,projets]);
 
     return (
             <>
             <h1>{t("Tableau de bord")}</h1>
-            {loading ? <div className='loader'><LoadingMarkup /></div>
+            {(loading && projets.length>0) ? <div className='loader'><LoadingMarkup /></div>
                 : (
                     <>
                         <Cards/>

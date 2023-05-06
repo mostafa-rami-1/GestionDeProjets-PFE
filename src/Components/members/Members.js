@@ -1,257 +1,69 @@
-import React, {memo } from 'react'
-import { Main } from '../../layout/main/Main'
+import React, {memo ,useEffect,useState,useContext,useCallback} from 'react'
+
 import { useTranslation } from 'react-i18next';
-import { Trash ,Edit } from 'iconsax-react'
+
+import MembreCard from './MembreCard';
+import axiosClient from '../../axios';
+import { StateContext } from '../../ContextProvider';
+import EditMembre from '../modals/edit/editMembre/EditMembre';
+import {
+  Modal,
+  Ripple,
+  initTE,
+} from "tw-elements";
+
+import './members.css'
+import DeleteMembre from '../modals/delete/deleteMembre/DeleteMembre';
+
 
 const Members = () => {
-  const {t}= useTranslation()
+  const { t } = useTranslation()
   
-  
-  return (
-    <>
-      <h1>{t("Membres")}</h1>
-      <div className="data-container">
-        <table className='fixed_header'>
-          <thead>
-              <tr>
-                  <th>{t("nom")}</th>
-                  <th>{t("date de debut")}</th>
-                  <th>{t("date de création")}</th>
-                  <th>{t("date de livraison")}</th>
-                  <th>{t("client")}</th>
-                  <th>{t("catégorie")}</th>
-                <th>{t("membres")}</th>
+  const { membres ,setMembres,isMembersFetched,setIsMembersFetched} = useContext(StateContext)
+  const [membresFetched, setMembresFteched] = useState(membres)
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")))
 
-                  <th>{t('Action') }</th>
-              </tr>
-          </thead>  
-          <tbody>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td"><Edit size="25" color="#FF8A65"/><Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-            <tr>
-              <td data-label={t("nom")}>Visa - 3412</td>
-              <td data-label={t("date de debut")}>04/01/2016</td>
-              <td data-label={t("date de création")}>$1,190</td>
-              <td data-label={t("date de livraison")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("client")}>03/01/2016 - 03/31/2016</td>
-              <td data-label={t("catégorie")}>03/0
-              <td data-label={t("catégorie")}>03/01/2016 - 03/31/2016</td>
-              1/2016 - 03/31/2016</td>
-              <td data-label={t('Action') } className="l-td">  <Edit size="25" color="#FF8A65"/> <Trash size="25" color="#FF8A65"/></td>
-            </tr>
-        </tbody>
-        </table>
-      </div>
-    </>
-   
+  const fetchMembres = useCallback(()=>axiosClient.get("/membres"),[])
+  useEffect(() => {
+    initTE({ Modal, Ripple });
+      async function getMembres() {
+        try {
+          const data = await fetchMembres()
+          setIsMembersFetched(true)
+          setMembres(data.data)
+          setMembresFteched(data.data)
+        }
+        catch (error) {
+          console.log("");
+        }
+      }
+      getMembres()
     
+  }, [isMembersFetched])
+
+  return (
+    <div className='content-container'>
+      <div className="text-neutral-700 dark:text-neutral-300 ">
+       <div className="grid gap-4 md:grid-cols-4 text-center">
+        {membresFetched.length > 0 && membresFetched.map((m) => {
+          return (currentUser.id_membre!==m.id_membre && <MembreCard key={m.id_membre}
+            id={m.id_membre}
+            nom={m.nom}
+            prenom={m.prenom}
+            tel={m.telephone}
+            email={m.email}
+            photo={m.image}
+            designation={m.designation.nom}
+            role={m.role}
+            image={m.image}
+          />)
+        })}
+        
+        </div>
+      </div>
+      <EditMembre />
+      <DeleteMembre/>
+    </div>
   )
 }
 

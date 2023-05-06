@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom'
 import { memo } from 'react'
 
 
+
 const Main = () => {
   return (
     <div className="mainLayout">
@@ -13,9 +14,10 @@ const Main = () => {
       <Nav />
       <div className="main">
           <section >
-              <Outlet></Outlet>
+          <Outlet></Outlet>
+          
           </section>
-
+     
       </div>
     </div>
   )

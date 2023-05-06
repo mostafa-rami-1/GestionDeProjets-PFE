@@ -1,4 +1,4 @@
-import React, { useState,createContext , useRef  } from 'react'
+import React, { useState,createContext   } from 'react'
 import { memo } from 'react'
 
 
@@ -7,7 +7,8 @@ export const StateContext = createContext({
     setIsLoading: () => { },
     
     
-    
+    membre: {},
+    setMembre:()=>{},
     currentUser: {},
     setCurrentUser: () => { },
 
@@ -27,7 +28,10 @@ export const StateContext = createContext({
     categories:[],
     setCategories: () => { },
     clients: [],
-    setClients:()=>{},
+    setClients: () => { },
+    
+    designations: [],
+    setDesignations : ()=>{},
 
     dataFetched: false,
     setDataFetched: () => { },
@@ -67,6 +71,9 @@ export const StateContext = createContext({
     idTache:null,
     setIdTache: () => { },
 
+    idMembre: null,
+    setIdMembre:()=>{},
+
     chefProjet: {},
     setChefProjet: () => { },
 
@@ -74,8 +81,10 @@ export const StateContext = createContext({
     setRole : ()=>{},
     
     path: window.location.pathname.split("/")[1],
-    setPath : () => { },
-
+    setPath: () => { },
+    isMembersFetched:false,
+    setIsMembersFetched:()=>{}
+    
 })
 
 const ContextProvider = ({ children }) => {
@@ -83,7 +92,8 @@ const ContextProvider = ({ children }) => {
     const [currentUser, _setCurrentUser] = useState({})
     const [userToken, _setUserToken] = useState("")
     const [isLoading, setIsLoading] = useState(true)
-   
+    const [isMembersFetched, setIsMembersFetched] = useState(false)
+
 
     
     //modals
@@ -107,11 +117,15 @@ const ContextProvider = ({ children }) => {
     const [role, setRole] = useState(null)
     const [chefProjet,setChefProjet]= useState({})
     const [idProjet, setIdProjet] = useState(null)
-    const [idTache,setIdTache] = useState(null)
+    const [idTache, setIdTache] = useState(null)
+    const [idMembre, setIdMembre] = useState(null)
+    const [membre, setMembre] = useState({})
+    const [designations, setDesignations]= useState([])
 
     const [projectDescription, setProjectDescription] = useState("")
     const  [dataFetched,setDataFetched] = useState(false	)
-    const [path , setPath ]= useState(window.location.pathname.split("/")[1])
+    const [path, setPath] = useState(window.location.pathname.split("/")[1])
+    
     
      
 
@@ -152,6 +166,9 @@ const ContextProvider = ({ children }) => {
 
             categories,
             setCategories,
+
+            designations,
+            setDesignations,
 
             clients,
             setClients,
@@ -196,11 +213,21 @@ const ContextProvider = ({ children }) => {
             idTache,
             setIdTache,
             
+            idMembre,
+            setIdMembre,
+            
+            membre,
+            setMembre,
+            
             chefProjet,
             setChefProjet,
             
             path,
-            setPath
+            setPath,
+            isMembersFetched,
+            setIsMembersFetched
+            
+
        
         }}>
             {children}

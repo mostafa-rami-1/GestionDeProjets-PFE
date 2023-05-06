@@ -22,7 +22,7 @@ export default function Projects() {
   const [projetsFetched, setProjetsFetched] = useState(projets)
  
   
-  const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets]);
+  const fetchProjets = useCallback(() => axiosClient.get(`/projets`), [projets])
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
   const fetchCategories = useCallback(() => axiosClient.get("/categories"), [categories])
   const fetchClients = useCallback(()=>axiosClient.get("/clients"),[clients])
