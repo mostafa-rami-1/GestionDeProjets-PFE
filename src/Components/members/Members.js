@@ -1,4 +1,4 @@
-import React, {memo ,useEffect,useState,useContext,useCallback} from 'react'
+import React, { memo, useEffect, useState, useContext, useCallback } from 'react'
 
 import { useTranslation } from 'react-i18next';
 
@@ -15,67 +15,78 @@ import {
 import './members.css'
 import DeleteMembre from '../modals/delete/deleteMembre/DeleteMembre';
 import { AddCircle } from 'iconsax-react';
-import Button from '../sub-components/Button';
+
 import AddBtn from '../sub-components/AddBtn';
 import AddMember from '../modals/add/AddMember';
+
+import Search from '../sub-components/search/Search'
 
 
 const Members = () => {
   const { t } = useTranslation()
-  
-  const { membres ,setMembres,isMembersFetched,setIsMembersFetched ,setEditModalIsOpen} = useContext(StateContext)
+
+  const { membres, setMembres, isMembersFetched, setIsMembersFetched, setEditModalIsOpen } = useContext(StateContext)
   const [membresFetched, setMembresFteched] = useState(membres)
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")))
 
-  const fetchMembres = useCallback(()=>axiosClient.get("/membres"),[])
+  const fetchMembres = useCallback(() => axiosClient.get("/membres"), [])
   useEffect(() => {
     initTE({ Modal, Ripple });
-      async function getMembres() {
-        try {
-          const data = await fetchMembres()
-          setIsMembersFetched(true)
-          setMembres(data.data)
-          setMembresFteched(data.data)
-        }
-        catch (error) {
-          console.log("");
-        }
+    async function getMembres() {
+      try {
+        const data = await fetchMembres()
+        setIsMembersFetched(true)
+        setMembres(data.data)
+        setMembresFteched(data.data)
       }
-      getMembres()
-    
+      catch (error) {
+        console.log("");
+      }
+    }
+    getMembres()
+
   }, [isMembersFetched])
 
+  const searchMembre = (e) => {
+    setMembresFteched(membres.filter((m) => (m.nom.toLocaleLowerCase().includes(e))))
+  }
+
+
   return (
-    <div className='content-container'>
-      <div className="text-neutral-700 dark:text-neutral-300 ">
-       <div className="grid gap-4 md:grid-cols-4 text-center">
-        {membresFetched.length > 0 && membresFetched.map((m) => {
-          return (currentUser.id_membre!==m.id_membre && <MembreCard key={m.id_membre}
-            id={m.id_membre}
-            nom={m.nom}
-            prenom={m.prenom}
-            tel={m.telephone}
-            email={m.email}
-            photo={m.image}
-            designation={m.designation.nom}
-            role={m.role}
-            image={m.image}
-          />)
-        })}
-        
+    <>
+      <h1>Membres</h1>
+      <Search searchCloser={searchMembre} />
+      <div className='content-container'>
+        <div className="text-neutral-700 dark:text-neutral-300 ">
+          <div className="grid gap-4 md:grid-cols-4 text-center">
+            {membresFetched.length > 0 && membresFetched.map((m) => {
+              return (currentUser.id_membre !== m.id_membre && <MembreCard key={m.id_membre}
+                id={m.id_membre}
+                nom={m.nom}
+                prenom={m.prenom}
+                tel={m.telephone}
+                email={m.email}
+                photo={m.image}
+                designation={m.designation.nom}
+                role={m.role}
+                image={m.image}
+              />)
+            })}
+
+          </div>
         </div>
+        <EditMembre />
+        <DeleteMembre />
+        <AddMember />
+        {(localStorage.getItem("role") === "admin")
+          &&
+          <div className="ajouter" onClick={() => setEditModalIsOpen(true)}>
+            <AddBtn bg={"white"} Icon={AddCircle} color="#ff0000" />
+          </div>}
+
+
       </div>
-      <EditMembre />
-      <DeleteMembre />
-      <AddMember/>
-      {(localStorage.getItem("role") === "admin")
-        &&
-        <div className="ajouter" onClick={() => setEditModalIsOpen(true)}>
-          <AddBtn bg={"white"} Icon={AddCircle} color="#ff0000" />
-        </div>}
-      
-      
-    </div>
+    </>
   )
 }
 
