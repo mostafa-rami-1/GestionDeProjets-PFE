@@ -14,12 +14,16 @@ import {
 
 import './members.css'
 import DeleteMembre from '../modals/delete/deleteMembre/DeleteMembre';
+import { AddCircle } from 'iconsax-react';
+import Button from '../sub-components/Button';
+import AddBtn from '../sub-components/AddBtn';
+import AddMember from '../modals/add/AddMember';
 
 
 const Members = () => {
   const { t } = useTranslation()
   
-  const { membres ,setMembres,isMembersFetched,setIsMembersFetched} = useContext(StateContext)
+  const { membres ,setMembres,isMembersFetched,setIsMembersFetched ,setEditModalIsOpen} = useContext(StateContext)
   const [membresFetched, setMembresFteched] = useState(membres)
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")))
 
@@ -62,7 +66,15 @@ const Members = () => {
         </div>
       </div>
       <EditMembre />
-      <DeleteMembre/>
+      <DeleteMembre />
+      <AddMember/>
+      {(localStorage.getItem("role") === "admin")
+        &&
+        <div className="ajouter" onClick={() => setEditModalIsOpen(true)}>
+          <AddBtn bg={"white"} Icon={AddCircle} color="#ff0000" />
+        </div>}
+      
+      
     </div>
   )
 }

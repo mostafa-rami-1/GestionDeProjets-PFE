@@ -502,3 +502,11 @@ section > .search{
     background-color: white;
     border: 1px solid #8A4DD9;
 }
+.hideModal{
+    display: none ;
+}
+
+.scale-70{
+    scale: 72%;
+}
+

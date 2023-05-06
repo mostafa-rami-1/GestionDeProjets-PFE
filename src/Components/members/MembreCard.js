@@ -4,9 +4,8 @@ import { StateContext } from '../../ContextProvider'
 import Button from '../sub-components/Button'
 import profileImg from '../../assets/Profile.png'
 export default function MembreCard({ id, nom, prenom, tel, email, role, designation ,image}) {
-    const { setIdMembre, setMembre , setDeleteModalIsOpen,setDataTeTarget } = useContext(StateContext)
-    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")))
-
+    const { setIdMembre,setEditMemberModalIsOpen  , setDeleteModalIsOpen } = useContext(StateContext)
+ 
     let bg
     let userImg
    
@@ -60,6 +59,7 @@ export default function MembreCard({ id, nom, prenom, tel, email, role, designat
                   <Button bg={"white"} Icon={Edit} color="blue" type="m" onClick={() => {
                    
                       setIdMembre(id)
+                      setEditMemberModalIsOpen(true)
                   }} />
                   <Button bg={"white"} Icon={Trash} color="#ff0000" type="d" onClick={() => {
                       setIdMembre(id)

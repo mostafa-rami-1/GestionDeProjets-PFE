@@ -63,7 +63,10 @@ export const StateContext = createContext({
     setEditTaskModalIsOpen: () => { },
     
     deleteTaskModalIsOpen: false,
-    setDeleteTaskModalIsOpen:()=>{},
+    setDeleteTaskModalIsOpen: () => { },
+    
+    editMemberModalIsOpen: false,
+    setEditMemberModalIsOpen:()=>{},
 
     idProjet: null,
     setIdProjet: () => { },
@@ -107,6 +110,7 @@ const ContextProvider = ({ children }) => {
     const [addTaskModalIsOpen, setAddTaskModalIsOpen] = useState(false)
     const [editTaskModalIsOpen, setEditTaskModalIsOpen] = useState(false)
     const [deleteTaskModalIsOpen, setDeleteTaskModalIsOpen] = useState(false)
+    const [editMemberModalIsOpen, setEditMemberModalIsOpen]=useState(false)
     const [taskDescription,setTaskDescription]=useState("")
     
     const [projets ,setProjets] = useState([])
@@ -203,6 +207,9 @@ const ContextProvider = ({ children }) => {
             setDeleteTaskModalIsOpen,
             taskDescription,
             setTaskDescription,
+
+            editMemberModalIsOpen,
+            setEditMemberModalIsOpen,
 
             projectDescription,
             setProjectDescription,
