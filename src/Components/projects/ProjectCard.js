@@ -87,7 +87,6 @@ const ProjectCard = ({ id, nom, chef, description, membres, dateCreation, dateLi
             }} />}
           </div>
           </div>
-          
       </>
   )
 }

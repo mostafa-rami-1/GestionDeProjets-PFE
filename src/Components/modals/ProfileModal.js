@@ -7,8 +7,10 @@ import axiosClient from '../../axios'
 import { useSignOut } from 'react-auth-kit'
 
 const ProfileModal = () => {
-   const signOut = useSignOut()
-  const { setPath,setRole ,setCurrentUser} = useContext(StateContext)
+
+  const signOut = useSignOut()
+  
+  const { setPath,setEditProfileModalIsOpen} = useContext(StateContext)
   const logout = () => {
     axiosClient.post("/logout").then(({ data }) => {
       setPath("dashboard")
@@ -17,7 +19,9 @@ const ProfileModal = () => {
   }
   return (
     <div className="profileModal" id="modal">
-      <Link to="#" className='toProfile'>
+      <Link to="#" className='toProfile' onClick={() => {
+        setEditProfileModalIsOpen(true)
+      }}>
         <UserEdit size="20" color="#fff"/>
         <p>profile</p>
       </Link>

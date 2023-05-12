@@ -86,7 +86,13 @@ export const StateContext = createContext({
     path: window.location.pathname.split("/")[1],
     setPath: () => { },
     isMembersFetched:false,
-    setIsMembersFetched:()=>{}
+    setIsMembersFetched: () => { },
+    
+    profileModalIsOpen: false,
+    setProfileModalIsOpen: () => { },
+
+    editProfileModalIsOpen: false,
+    setEditProfileModalIsOpen:()=>{}
     
 })
 
@@ -100,17 +106,18 @@ const ContextProvider = ({ children }) => {
 
     
     //modals
-    const [profileModaIsOpen, setProfileModalIsOpen] = useState(false)
+    const [profileModalIsOpen, setProfileModalIsOpen] = useState(false)
     const [languageModaIsOpen, setLanguageModalIsOpen] = useState(false)
     const [addModalIsOpen,setAddModalIsOpen]=useState(false)
     const [deleteModaIsOpen, setDeleteModalIsOpen] = useState(false)
     const [descriptionModalIsOpen, setDescriptionModalIsOpen] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
+    const [editProfileModalIsOpen,setEditProfileModalIsOpen]=useState(false)
 
     const [addTaskModalIsOpen, setAddTaskModalIsOpen] = useState(false)
     const [editTaskModalIsOpen, setEditTaskModalIsOpen] = useState(false)
     const [deleteTaskModalIsOpen, setDeleteTaskModalIsOpen] = useState(false)
-    const [editMemberModalIsOpen, setEditMemberModalIsOpen]=useState(false)
+    const [editMemberModalIsOpen, setEditMemberModalIsOpen] = useState(false)
     const [taskDescription,setTaskDescription]=useState("")
     
     const [projets ,setProjets] = useState([])
@@ -153,7 +160,7 @@ const ContextProvider = ({ children }) => {
             userToken,
             setUserToken,
 
-            profileModaIsOpen,
+            profileModalIsOpen,
             setProfileModalIsOpen,
 
             languageModaIsOpen,
@@ -232,7 +239,10 @@ const ContextProvider = ({ children }) => {
             path,
             setPath,
             isMembersFetched,
-            setIsMembersFetched
+            setIsMembersFetched,
+            editProfileModalIsOpen,
+            setEditProfileModalIsOpen
+            
             
 
        
