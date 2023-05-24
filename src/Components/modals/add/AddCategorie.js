@@ -6,7 +6,7 @@ import {
 } from '../edit/editMembre/inputStyle'
 
 function AddCategorie() {
-    const { editModalIsOpen, setEditModalIsOpen } = useContext(StateContext)
+    const { editModalIsOpen, setEditModalIsOpen,refresh,setRefresh } = useContext(StateContext)
     const [error, setError] = useState({ nom: "", description: "" })
     const [nom, setNom] = useState("")
     const [description, setDescription] = useState("")
@@ -23,6 +23,9 @@ function AddCategorie() {
         }).then((response) => {
             setError({})
             setEditModalIsOpen(false)
+            setRefresh(!refresh)
+            setNom("")
+            setDescription("")
         }).catch((err) => {
             if (err.response.data.errors) {
                 const { nom, description } = err.response.data.errors

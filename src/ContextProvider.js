@@ -98,7 +98,12 @@ export const StateContext = createContext({
     setIdCategorie: () => { },
 
     editCategorieModalIsOpen: false,
-    setEditCategorieModalIsOpen:()=>{}
+    setEditCategorieModalIsOpen: () => { },
+
+    idDesignation: null,
+    setIdDesignation: () => { },
+    editDesignationModalIsOpen: false,
+    setEditDesignationModalIsOpen:()=>{}
     
 })
 
@@ -137,7 +142,9 @@ const ContextProvider = ({ children }) => {
     const [idTache, setIdTache] = useState(null)
     const [idMembre, setIdMembre] = useState(null)
     const [membre, setMembre] = useState({})
-    const [designations, setDesignations]= useState([])
+    const [designations, setDesignations] = useState([])
+    const [idDesignation, setIdDesignation] = useState(null)
+    const [editDesignationModalIsOpen,setEditDesignationModalIsOpen]=useState(false)
 
     const [projectDescription, setProjectDescription] = useState("")
     const  [dataFetched,setDataFetched] = useState(false	)
@@ -255,11 +262,13 @@ const ContextProvider = ({ children }) => {
             editProfileModalIsOpen,
             setEditProfileModalIsOpen,
             editCategorieModalIsOpen,
-            setEditCategorieModalIsOpen
+            setEditCategorieModalIsOpen,
             
-            
+            idDesignation,
+            setIdDesignation,
+            editDesignationModalIsOpen,
+            setEditDesignationModalIsOpen
 
-       
         }}>
             {children}
         </StateContext.Provider>

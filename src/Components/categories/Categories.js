@@ -93,9 +93,10 @@ const Categories = () => {
             </tbody>
           </table>
       </div>
-
-      <DeleteCategorie />
-      <EditCategorie />
+      {(localStorage.getItem("role") === "admin") &&
+        <DeleteCategorie />}
+      {(localStorage.getItem("role") === "admin") &&
+        <EditCategorie />}
 
       {(localStorage.getItem("role") === "admin")
         &&
