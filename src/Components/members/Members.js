@@ -37,7 +37,7 @@ const Members = () => {
         const data = await fetchMembres()
         setIsMembersFetched(true)
         setMembres(data.data)
-        setMembresFteched(data.data)
+        setMembresFteched(membres)
       }
       catch (error) {
         console.log("");

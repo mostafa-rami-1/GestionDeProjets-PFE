@@ -1,4 +1,4 @@
- import {BackwardItem ,Activity,User,TaskSquare,Category,NoteText , Profile2User} from "iconsax-react"
+ import {BackwardItem ,Activity,User,TaskSquare,Category,NoteText , Profile2User, DirectNormal} from "iconsax-react"
 
 export const data = [
      {
@@ -26,6 +26,12 @@ export const data = [
         title: "Categories",
         link: "categories"
     },
+    {
+        icon: DirectNormal,
+        title: "Designations",
+        link: "designations"
+    },
+
     {
         icon:Profile2User,
         title: "Clients",

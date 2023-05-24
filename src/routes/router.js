@@ -60,6 +60,12 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/designations",
+        element: (
+          <ProtectedRoute component={Designations} loginPath="/login" />
+        ),
+      },
+      {
         path: "/reports",
         element: (
           <ProtectedRoute component={Reports} loginPath="/login" />
