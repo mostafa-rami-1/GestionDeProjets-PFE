@@ -9,10 +9,10 @@ import axiosClient from '../../axios';
 import { StateContext } from '../../ContextProvider';
 export default function Profile() {
     const {  editProfileModalIsOpen, setEditProfileModalIsOpen} = useContext(StateContext)
-    const id = JSON.parse(localStorage.getItem("currentUser")).id_membre
-    const prenom = JSON.parse(localStorage.getItem("currentUser")).prenom
-    const nom = JSON.parse(localStorage.getItem("currentUser")).nom
-    const role = JSON.parse(localStorage.getItem("currentUser")).role.id_role
+    const id = JSON.parse(localStorage.getItem("currentUser"))?.id_membre
+    const prenom = JSON.parse(localStorage.getItem("currentUser"))?.prenom
+    const nom = JSON.parse(localStorage.getItem("currentUser"))?.nom
+    const role = JSON.parse(localStorage.getItem("currentUser"))?.role.id_role
     const [error, setError] = useState({  email: "", telephone: "", password: "", password_confirmation: "", image: "" })
 
   

@@ -83,8 +83,6 @@ const Members = () => {
           <div className="ajouter" onClick={() => setEditModalIsOpen(true)}>
             <AddBtn bg={"white"} Icon={AddCircle} color="#ff0000" />
           </div>}
-
-
       </div>
     </>
   )

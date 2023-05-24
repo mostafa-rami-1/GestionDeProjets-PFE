@@ -1,6 +1,6 @@
 
 
-import React, {useContext,memo,useState} from 'react'
+import React, {useContext,memo} from 'react'
 import { LanguageSquare , ArrowDown2} from "iconsax-react"
 import ProfileModal from '../../Components/modals/ProfileModal'
 import LanguageModal from '../../Components/modals/LanguageModal'
@@ -17,9 +17,7 @@ import Profile from '../../Components/profile/Profile';
 const Nav = () => {
   let { navRef,  profileModalIsOpen,
     setProfileModalIsOpen, languageModaIsOpen,
-    setLanguageModalIsOpen, refresh ,idMembre,setIdMembre} = useContext(StateContext)
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("currentUser")))
-
+    setLanguageModalIsOpen} = useContext(StateContext)
   const user = useAuthUser() || {}
   let userImg = profilepng
   if (user()?.image) {

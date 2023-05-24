@@ -92,7 +92,13 @@ export const StateContext = createContext({
     setProfileModalIsOpen: () => { },
 
     editProfileModalIsOpen: false,
-    setEditProfileModalIsOpen:()=>{}
+    setEditProfileModalIsOpen: () => { },
+    
+    idCategorie:false,
+    setIdCategorie: () => { },
+
+    editCategorieModalIsOpen: false,
+    setEditCategorieModalIsOpen:()=>{}
     
 })
 
@@ -136,6 +142,9 @@ const ContextProvider = ({ children }) => {
     const [projectDescription, setProjectDescription] = useState("")
     const  [dataFetched,setDataFetched] = useState(false	)
     const [path, setPath] = useState(window.location.pathname.split("/")[1])
+
+    const [idCategorie, setIdCategorie] = useState(null)
+    const [editCategorieModalIsOpen, setEditCategorieModalIsOpen]=useState(false)
     
     
      
@@ -229,6 +238,9 @@ const ContextProvider = ({ children }) => {
             
             idMembre,
             setIdMembre,
+
+            idCategorie,
+            setIdCategorie,
             
             membre,
             setMembre,
@@ -241,7 +253,9 @@ const ContextProvider = ({ children }) => {
             isMembersFetched,
             setIsMembersFetched,
             editProfileModalIsOpen,
-            setEditProfileModalIsOpen
+            setEditProfileModalIsOpen,
+            editCategorieModalIsOpen,
+            setEditCategorieModalIsOpen
             
             
 
