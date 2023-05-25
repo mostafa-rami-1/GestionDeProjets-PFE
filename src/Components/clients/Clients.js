@@ -9,6 +9,8 @@ import {
 import Search from '../sub-components/search/Search';
 import { AddCircle, Edit, Trash } from 'iconsax-react';
 import AddClient from '../modals/add/AddClient';
+import DeleteClient from '../modals/delete/DeleteClient';
+import EditClient from '../modals/edit/EditClient';
 
 const Clients = () => {
   const { t } = useTranslation()
@@ -27,7 +29,11 @@ const Clients = () => {
       setClients(response.data);
       setFetchedClients(response.data)
     }).catch((error) => { console.log(error.response.data) })
-  }, [refresh])
+
+
+
+    
+  }, [])
 
   const searchClients = (e) => {
     setFetchedClients(clients.filter((c) => (c.nom.toLocaleLowerCase().includes(e))))
@@ -59,8 +65,6 @@ const Clients = () => {
             </tr>
           </thead>
           <tbody>
-
-
             {fetchedClients.length > 0 && fetchedClients.map((c) => {
               return (
                 <tr key={c.id_client} className="border-b dark:border-neutral-500">
@@ -96,6 +100,10 @@ const Clients = () => {
           </tbody>
         </table>
       </div>
+      {(localStorage.getItem("role") === "admin") &&
+        <DeleteClient />}
+      {(localStorage.getItem("role") === "admin") &&
+        <EditClient />}
     </>
   )
 }

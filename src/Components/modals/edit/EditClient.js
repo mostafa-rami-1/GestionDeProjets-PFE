@@ -1,48 +1,57 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axiosClient from '../../../axios'
 import { StateContext } from '../../../ContextProvider'
 import {
     INPUT_LABEL, INPUT_STYLE, CLOSE_STYLE, MODIFY_STYLE
-} from '../edit/editMembre/inputStyle'
+} from './editMembre/inputStyle'
 
-export default function AddClient() {
-    const {  setIdClient, addClientModalIsOpen, setAddClientModalIsOpen,refresh,setRefresh } = useContext(StateContext)
-    const [id, setId] = useState(null)
-
-    const [error, setError] = useState({ nom: "", prenom: "", email: "", telephone: ""})
-
+export default function EditClient() {
+    const { editClientModalIsOpen, setEditClientModalIsOpen, idClient, refresh, setRefresh,setIdClient } = useContext(StateContext)
+    const [error, setError] = useState({ nom: "", prenom:"",email:"",telephone:"" })
     const [nom, setNom] = useState("")
     const [prenom, setPrenom] = useState("")
     const [email, setEmail] = useState("")
     const [telephone, setTelephone] = useState("")
+    const [id, setID] = useState(null)
+
+    useEffect(() => {
+        setID(idClient)
+        if (id) {
+            axiosClient.get(`/clients/${id}`).then((r) => {
+                setNom(r.data.nom)
+                setPrenom(r.data.prenom)
+                setEmail(r.data.email)
+                setTelephone(r.data.telephone)
+            }).catch((e) => {
+                console.log(e);
+            })
+        }
+    }, [idClient, id])
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setError({})
-        axiosClient.post(`/clients`, {
+        axiosClient.patch(`/clients/${id}`, {
             nom, prenom,email,telephone
         }).then((response) => {
-            setError({})
-            setAddClientModalIsOpen(false)
             setRefresh(!refresh)
-            setNom("")
-            setPrenom("")
-            setEmail("")
-            setTelephone("")
+            setError({})
+            setEditClientModalIsOpen(false)
         }).catch((err) => {
             if (err.response.data.errors) {
-                const { nom, prenom,email,telephone } = err.response.data.errors
-                setError({ nom, prenom,telephone,email })
+                const { nom, email,telephone,prenom } = err.response.data.errors
+                setError({ nom, email,prenom,telephone })
+                console.log(err);
             }
             console.log(err);
         })
     }
-   
   return (
-      <div className={addClientModalIsOpen ? 'show' : 'hide'}>
+      <div className={editClientModalIsOpen ? 'show ' : 'hide'}>
           <form method='post' onSubmit={handleSubmit} encType='multipart/form-data' className='lg:min-w-[500px]'>
               <div
-                  className="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
+                  className="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex  flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600 ">
                   <div
                       className="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
 
@@ -54,7 +63,7 @@ export default function AddClient() {
 
                       <button
                           type="button"
-                          onClick={() => setAddClientModalIsOpen(false)}
+                          onClick={() => setEditClientModalIsOpen(false)}
                           className="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
                           data-te-modal-dismiss
                           aria-label="Close">
@@ -82,13 +91,13 @@ export default function AddClient() {
                               type="text"
                               value={prenom}
                               className={INPUT_STYLE}
-                              id="floatingPrenom99ß9"
+                              id="floatingPrenom99ß9))"
                               placeholder="Prenom"
                               onChange={(e) => setPrenom(e.target.value)}
                           />
 
                           <label
-                              htmlFor="floatingPrenom99ß9"
+                              htmlFor="floatingPrenom99ß9))"
                               className={INPUT_LABEL}
                           >Prenom</label>
                           {error.prenom && <p className="error">{error.prenom}</p>}
@@ -99,13 +108,13 @@ export default function AddClient() {
                               type="text"
                               value={nom}
                               className={INPUT_STYLE}
-                              id="floatingNom99ß011"
+                              id="floatingNom99ß011//"
                               placeholder="nom"
                               onChange={(e) => setNom(e.target.value)}
                           />
 
                           <label
-                              htmlFor="floatingNom99ß011"
+                              htmlFor="floatingNom99ß011//"
                               className={INPUT_LABEL}
                           >Nom</label>
                           {error.nom && <p className="error">{error.nom}</p>}
@@ -116,12 +125,12 @@ export default function AddClient() {
                               type="email"
                               value={email}
                               className={INPUT_STYLE}
-                              id="floatingInput99}8"
+                              id="floatingInput99=%}8"
                               placeholder="name@example.com"
                               onChange={(e) => setEmail(e.target.value)}
                           />
                           <label
-                              htmlFor="floatingInput99}8"
+                              htmlFor="floatingInput99=%}8"
                               className={INPUT_LABEL}
                           >Email address</label>
                           {error.email && <p className="error">{error.email}</p>}
@@ -133,13 +142,13 @@ export default function AddClient() {
                               type="tel"
                               value={telephone}
                               className={INPUT_STYLE}
-                              id="floatingTelephone99ß112"
+                              id="floatingTelephone99ß112$§"
                               placeholder="telephone"
                               onChange={(e) => setTelephone(e.target.value)}
                           />
 
                           <label
-                              htmlFor="floatingTelephone99ß112"
+                              htmlFor="floatingTelephone99ß112$§"
                               className={INPUT_LABEL}
                           >Telephone</label>
                           {error.telephone && <p className="error">{error.telephone}</p>}
@@ -156,10 +165,10 @@ export default function AddClient() {
                           data-te-ripple-color="light"
                           onClick={() => {
                               setIdClient(null)
-                              
+
                               setError({})
 
-                              setAddClientModalIsOpen(false)
+                              setEditClientModalIsOpen(false)
                           }}
                       >
                           Close
@@ -172,7 +181,7 @@ export default function AddClient() {
                           data-te-ripple-color="light"
                           onClick={handleSubmit}
                       >
-                          Ajouter
+                          modifier
                       </button>
                   </div>
               </div>
