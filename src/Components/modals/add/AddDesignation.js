@@ -11,10 +11,6 @@ function AddDesignation() {
     const [nom, setNom] = useState("")
     const [description, setDescription] = useState("")
 
-
-
-
-
     const handleSubmit = (e) => {
         e.preventDefault()
         setError({})

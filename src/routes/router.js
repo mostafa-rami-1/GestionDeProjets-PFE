@@ -12,6 +12,7 @@ import Home from "../home/Home";
 import { Test } from "../Test";
 import ProtectedLoginRoute from './ProtectedLoginRoute'
 import ProtectedRoute from './ProtectedRoute'
+import Clients from '../Components/clients/Clients'
 
 
 
@@ -63,6 +64,12 @@ const router = createBrowserRouter([
         path: "/designations",
         element: (
           <ProtectedRoute component={Designations} loginPath="/login" />
+        ),
+      },
+      {
+        path: "/clients",
+        element: (
+          <ProtectedRoute component={Clients} loginPath="/login" />
         ),
       },
       {

@@ -40,9 +40,6 @@ export default function AddMember() {
                 console.log(e);
             })
             }
-        
-
-
     }, [idMembre, id])
 
     
@@ -51,25 +48,7 @@ export default function AddMember() {
 
 
     const handleSubmit = (e) => {
-        //document.getElementById("AddBackDrop").setAttribute("aria-hidden", true)
-        // document.getElementById("AddBackDrop").removeAttribute("aria-modal")
-        // document.getElementById("AddBackDrop").removeAttribute("role")
-        // document.getElementById("AddBackDrop").removeAttribute("data-te-open")
-
-
-        // // document.getElementById("AddBackDrop")
-        // //     .className = "pointer-events-none relative w-auto translate-y-[-50px] transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px] opacity-0";
-        // document.getElementById("insider").classList.remove("transform-none", "opacity-100")
-        // document.getElementById("insider").classList.add("opacity-0")
-        // document.getElementById("AddBackDrop").style.display = "none"
-       
-
-
-
-    
-        e.preventDefault();
-        //document.getElementById("insider").style.display = "none"
-        
+        e.preventDefault();        
         setError({})
         const data = new FormData()
         data.append("image", image)
@@ -108,7 +87,7 @@ export default function AddMember() {
                         <h5
                             className="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
                             id="exampleModalLabel">
-                            Modifier ce membre
+                            ajouter un membre
                         </h5>
 
                         <button

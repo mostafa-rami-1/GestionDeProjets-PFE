@@ -31,13 +31,16 @@ function Designations() {
       setFetchedDesignations(response.data)
     }).catch((error) => { console.log(error.response.data) })
   }, [refresh]) 
-  
+
+  const searchDesignation = (e) => {
+    setFetchedDesignations(designations.filter((d) => (d.nom.toLocaleLowerCase().includes(e))))
+  }
 
   return (
     
     <>
       <h1>{t("Designation")}</h1>
-      <Search searchCloser={() => { }} />
+      <Search searchCloser={searchDesignation} />
       {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
         &&
         <AddDesignation />

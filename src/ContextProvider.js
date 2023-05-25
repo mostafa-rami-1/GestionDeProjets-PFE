@@ -103,8 +103,17 @@ export const StateContext = createContext({
     idDesignation: null,
     setIdDesignation: () => { },
     editDesignationModalIsOpen: false,
-    setEditDesignationModalIsOpen:()=>{}
+    setEditDesignationModalIsOpen: () => { },
     
+    idClient: null,
+    setIdClient: () => { },
+    
+    editClientModalIsOpen: false,
+    setEditClientModalIsOpen: () => { },
+    deleteClientModalIsOpen: false,
+    setDeleteClientModalIsOpen: () => { },
+    addClientModalIsOpen: false,
+    setAddClientModalIsOpen:()=>{}
 })
 
 const ContextProvider = ({ children }) => {
@@ -141,6 +150,7 @@ const ContextProvider = ({ children }) => {
     const [idProjet, setIdProjet] = useState(null)
     const [idTache, setIdTache] = useState(null)
     const [idMembre, setIdMembre] = useState(null)
+    const [idClient,setIdClient]=useState(null)
     const [membre, setMembre] = useState({})
     const [designations, setDesignations] = useState([])
     const [idDesignation, setIdDesignation] = useState(null)
@@ -153,6 +163,9 @@ const ContextProvider = ({ children }) => {
     const [idCategorie, setIdCategorie] = useState(null)
     const [editCategorieModalIsOpen, setEditCategorieModalIsOpen]=useState(false)
     
+    const [addClientModalIsOpen, setAddClientModalIsOpen] = useState(false)
+    const [deleteClientModalIsOpen, setDeleteClientModalIsOpen] = useState(false)
+    const [editClientModalIsOpen,setEditClientModalIsOpen]=useState(false)
     
      
 
@@ -267,7 +280,16 @@ const ContextProvider = ({ children }) => {
             idDesignation,
             setIdDesignation,
             editDesignationModalIsOpen,
-            setEditDesignationModalIsOpen
+            setEditDesignationModalIsOpen,
+
+            idClient,
+            setIdClient,
+            addClientModalIsOpen,
+            setAddClientModalIsOpen,
+            deleteClientModalIsOpen,
+            setDeleteClientModalIsOpen,
+            editClientModalIsOpen,
+            setEditClientModalIsOpen
 
         }}>
             {children}
