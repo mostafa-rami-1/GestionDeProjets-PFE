@@ -56,7 +56,7 @@ const TaskCard = ({id,nom,description,membres,dateCreation,dateDebut,dateFin,pro
                   <h5>{dateFin}</h5>
 
                   <h4>Statut</h4>
-                  <h5 className='statut'>{statues.find((s)=>s.id==statut).nom}</h5>
+                  <h5 className='statut border-2 border-indigo-400 rounded'>{statues.find((s)=>s.id==statut).nom}</h5>
 
                   <h4>Cout</h4>
                   <h5>00</h5>

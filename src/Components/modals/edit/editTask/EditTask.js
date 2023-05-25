@@ -37,6 +37,7 @@ const EditTask = ({ id }) => {
         setIsDataReceived(true)
         if (editTaskModalIsOpen) {
             setMembresEdit(membres)
+            
             axiosClient.get(`/tacheMembres/${id}`)
             .then((response) => {
                 setMembresChecked([])
@@ -121,7 +122,7 @@ const EditTask = ({ id }) => {
                 setRefresh(!refresh)
                 setSuccess(true)
                 setMsg(response.data.message)
-                console.log(response.data);
+                setEditTaskModalIsOpen(false)
             })
             .catch((e) => {
                     setSuccess(false)

@@ -13,6 +13,7 @@ import { Test } from "../Test";
 import ProtectedLoginRoute from './ProtectedLoginRoute'
 import ProtectedRoute from './ProtectedRoute'
 import Clients from '../Components/clients/Clients'
+import TasksV2 from '../Components/tasksV2/TasksV2'
 
 
 
@@ -78,16 +79,17 @@ const router = createBrowserRouter([
           <ProtectedRoute component={Reports} loginPath="/login" />
         ),
       },
+      {
+        path: "/test",
+        element: <TasksV2 />,
+      },
     ],
   },
   {
     path: "/login",
     element: <ProtectedLoginRoute component={Login} redirectTo="/dashboard" />,
   },
-  {
-    path: "/test",
-    element: <Test/>,
-  },
+  
   {
     path: "*",
     element: <Navigate to="/" />,

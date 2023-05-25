@@ -11,6 +11,7 @@
     width: 21%;
     box-shadow: 0 4px 6px 0px rgb(190, 189, 189);
     border-top: 3px solid #ff6360;
+    flex-shrink: 0 !important;
 }
 .projetCarte:hover {
     scale: 1.004;
