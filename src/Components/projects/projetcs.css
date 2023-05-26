@@ -3,7 +3,6 @@
     height: 20px;
 }
 .projetCarte{
-    width: 264px;
     padding: 5px;
     margin: 5px;
     border: 1px solid #ccc;
@@ -12,6 +11,8 @@
     box-shadow: 0 4px 6px 0px rgb(190, 189, 189);
     border-top: 3px solid #ff6360;
     flex-shrink: 0 !important;
+    position: relative;
+    max-height: 390px;
 }
 .projetCarte:hover {
     scale: 1.004;
@@ -45,6 +46,8 @@
     justify-content: center;
     gap: 2px;
     flex-wrap: wrap;
+    max-height: 100px;
+    overflow-y: scroll;
 }
 
 .membreProjet,.chef{
@@ -60,6 +63,7 @@
     display: flex;
     justify-content: space-between;
     gap: 50px;
+    margin-block-end: 25px;
 }
 .detailProjet h4,
 .detailProjet h5 {
@@ -76,6 +80,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+    
 }
 .actions-projet>*{
     scale: 1;
@@ -94,12 +102,12 @@
 }
 @media (max-width: 1000px){
     .projetCarte{
-        width: 40%;
+        width: 80%;
     }
 }
 @media (min-width: 1000px){
     .projetCarte{
-        width: 30%;
+        width: 25%;
     }
 }
 

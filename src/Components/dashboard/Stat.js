@@ -41,7 +41,7 @@ const Stat = ({ title, Data}) => {
             <h4>
                 {title}
             </h4>
-            <div className="">
+            <div>
                     <Doughnut options={options} width="100%" height="100%" data={data}/>
             </div>
         </div>

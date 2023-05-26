@@ -14,32 +14,30 @@ import "./tasks.css"
 import { AddTask } from '../modals/add/AddTask';
 import DeleteTask from '../modals/delete/deleteTask/DeleteTask';
 import EditTask from '../modals/edit/editTask/EditTask';
-
+import { Select, initTE } from "tw-elements";
+initTE({ Select });
 
 
 export default function Tasks() {
   const [loading, setLoading] = useState(false)
-  const {taches,setTaches,idTache,membres,setMembres,refresh,setAddTaskModalIsOpen,addTaskModalIsOpen , projets,setProjets} = useContext(StateContext)
+  const { taches, setTaches, idTache, membres, setMembres, refresh, setAddTaskModalIsOpen, addTaskModalIsOpen, projets, setProjets } = useContext(StateContext)
 
-  const [tachesFetched, setTachesFetched] = useState(taches)
+  const [projetsFetched, setProjetsFetched] = useState(projets)
   
-  const fetchTaches = useCallback(() => axiosClient.get(`/taches`), [taches]);
+  const [status, setStatus] = useState(null)
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
-  
+
   useEffect(() => {
     if (!taches.length) {
       async function fetchTachesData() {
         try {
-          setLoading(true)
-          const tachesData = await fetchTaches()
           const membresData = await fetchMembres()
-          setTaches(tachesData.data)
           setMembres(membresData.data)
         }
         catch (error) {
           console.log(error);
         }
-        finally{
+        finally {
           setLoading(false)
         }
       }
@@ -48,82 +46,118 @@ export default function Tasks() {
   }, [refresh])
 
   useEffect(() => {
-    axiosClient.get("/taches").then((response) => {
-      setTaches(response.data)
-      setTachesFetched(response.data)
-      
+
+    axiosClient.get("/projets").then((response) => {
+      setProjetsFetched(response.data)
     })
     if (!projets.length) {
-        axiosClient.get("/projets").then((response) => {
+      axiosClient.get("/projets").then((response) => {
         setProjets(response.data)
       })
     }
   }, [refresh])
- 
+
   const searchTache = (e) => {
-        setTachesFetched(taches.filter((p) =>( p.nom.toLocaleLowerCase().includes(e))))
-    }
+    setProjetsFetched(projets.filter((p) => (p.nom.toLocaleLowerCase().includes(e))))
+  }
   const { t } = useTranslation()
-  
+
+
   return (
     <>
       <h1>{t("taches")}</h1>
-      <Search searchCloser={searchTache}/>
+      <Search searchCloser={searchTache} placeHolder={"chercher un projet"} />
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">
-            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet" )
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
               &&
-              <AddTask/>
+              <AddTask />
             }
-            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet")
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
               &&
               <DeleteTask id={idTache} />
             }
-            
+
             <Description />
 
-            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet")
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
               &&
-              <EditTask id={idTache} />}
-            
-            {tachesFetched.map((tache) => { 
-              const id = tache.id_tache
-              const nom = tache.nom
-              const description = tache.description
-              const membres = tache.membres
-              const dateCreationObj = new Date(tache.created_at);
-              const dateCreation = `${dateCreationObj.getFullYear()}-${dateCreationObj.getMonth() + 1}-${dateCreationObj.getDate()}`
-              const dateDebutObj = new Date(tache.date_debut);
-              const dateDebut = `${dateDebutObj.getFullYear()}-${dateDebutObj.getMonth() + 1}-${dateDebutObj.getDate()}`
-              const dateFinObj = new Date(tache.date_fin);
-              const dateFin = `${dateFinObj.getFullYear()}-${dateFinObj.getMonth() + 1}-${dateFinObj.getDate()} ${dateFinObj.getHours()}-${dateFinObj.getMinutes()}-${dateFinObj.getSeconds()}`
+              <EditTask id={idTache} />
+            }
+            {
+              projetsFetched.length > 0 &&
 
-              const statut = tache.statut
-              const projet = tache.projet
-              const chef = tache.projet.chef_projet
-             
+              <div className=' min-w-full min-h-full '>
+                {
+                  projetsFetched.map((p) => {
+                    if (p.taches.length > 0) {
+                      const filteredTaches = status != null
+                        ? p.taches.filter((tache) => tache.statut == status)
+                        : p.taches;
 
-              return <TaskCard key={tache.id_tache}
-                id={id}
-                nom={nom}
-                description = {description}
-                dateCreation={dateCreation} 
-                dateDebut={dateDebut}
-                dateFin={dateFin}
-                membres={membres}
-                projet= {projet}
-                statut={statut}
-                chef={chef}
-              />
-            })}
-            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role")==="chef_de_projet")
+                      return (
+                        <div key={p.id_projet} className='project-card-container min-h-[400px] scale-95   shadow border p-1   min-w-full '>
+                          <div className="flex justify-between p-7 gap-5">
+                            <h2 className=' text-violet-600 text-lg font-bold'> <span className=' text-orange-400 font-normal'>Projet: </span> {p.nom}</h2>
+
+                            <select data-te-select-init defaultValue={0} onChange={(e) => {
+                              setStatus(e.target.value)
+                            }}>
+                              <option value="0">filtre</option>
+                              <option value="0">pas commence</option>
+                              <option value="1">entrain</option>
+                              <option value="2">finie</option>
+                            </select>
+
+                          </div>
+                          <div
+                            className='flex  gap-4 pb-1 flex-row overflow-x-scroll flex-nowrap'>
+                            {filteredTaches.map((tache) => {
+                              const id = tache.id_tache
+                              const nom = tache.nom
+                              const description = tache.description
+                              const membres = tache.membres
+                              const dateCreationObj = new Date(tache.created_at);
+                              const dateCreation = `${dateCreationObj.getFullYear()}-${dateCreationObj.getMonth() + 1}-${dateCreationObj.getDate()}`
+                              const dateDebutObj = new Date(tache.date_debut);
+                              const dateDebut = `${dateDebutObj.getFullYear()}-${dateDebutObj.getMonth() + 1}-${dateDebutObj.getDate()}`
+                              const dateFinObj = new Date(tache.date_fin);
+                              const dateFin = `${dateFinObj.getFullYear()}-${dateFinObj.getMonth() + 1}-${dateFinObj.getDate()} ${dateFinObj.getHours()}-${dateFinObj.getMinutes()}-${dateFinObj.getSeconds()}`
+                              const statut = tache.statut
+                              const projet = p
+                              const chef = p.chef_projet
+                              return <TaskCard key={tache.id_tache}
+                                id={id}
+                                nom={nom}
+                                description={description}
+                                dateCreation={dateCreation}
+                                dateDebut={dateDebut}
+                                dateFin={dateFin}
+                                membres={membres}
+                                projet={projet}
+                                statut={statut}
+                                chef={chef}
+                              />
+                            })}
+                          </div>
+
+                        </div>
+
+                      )
+                    }
+                  }
+                  )
+                }
+              </div>
+            }
+            {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
               &&
-            <div onClick={() => setAddTaskModalIsOpen(!addTaskModalIsOpen)} className="ajouter">
-              <AddCircle size="80"   color='#8A4DD9' variant="Bulk"/>
-            </div>}
-            </div>
+              <div onClick={() => setAddTaskModalIsOpen(!addTaskModalIsOpen)} className="ajouter">
+                <AddCircle size="80" color='#8A4DD9' variant="Bulk" />
+              </div>}
+          </div>
         )}
-      </>
+    </>
   )
 }

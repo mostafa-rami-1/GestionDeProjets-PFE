@@ -1,0 +1,14 @@
+.project-card-container ::-webkit-scrollbar{
+   
+    height: 8px !important;
+    max-width: 5px !important;
+     
+}
+.project-card-container ::-webkit-scrollbar-thumb{
+   
+    background-color: rgba(255, 99, 96, 0.333);
+    
+    border-radius: 10px;
+    
+}
+

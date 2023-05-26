@@ -14,15 +14,11 @@ export default function Profile() {
     const nom = JSON.parse(localStorage.getItem("currentUser"))?.nom
     const role = JSON.parse(localStorage.getItem("currentUser"))?.role.id_role
     const [error, setError] = useState({  email: "", telephone: "", password: "", password_confirmation: "", image: "" })
-
-  
     const [email, setEmail] = useState("")
     const [telephone, setTelephone] = useState("")
     const [password, setPassword] = useState("")
     const [password_confirmation, setPassword_confirmation] = useState("")
     const [image, setImage] = useState(null)
-    
-
     useLayoutEffect(() => {
         initTE({ Select });
         axiosClient.get(`/membres/${id}`).then((r) => {
@@ -33,11 +29,6 @@ export default function Profile() {
             console.log(e);
         })            
     }, [])
-
-   
-    
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,7 +54,6 @@ export default function Profile() {
             }
         })
     }
-
 
     return (
         <div className={editProfileModalIsOpen ? 'show' : 'hide'}>
@@ -173,14 +163,6 @@ export default function Profile() {
                             </label>
                             {error.password && <p className="error">{error.password}</p>}
                         </div>
-
-                        
-
-
-                        
-
-
-
                         <div className="mb-3">
                             <label
                                 htmlFor="htmlFormFile012"

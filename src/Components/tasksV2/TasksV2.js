@@ -14,6 +14,8 @@ import "../tasks/tasks.css"
 import { AddTask } from '../modals/add/AddTask';
 import DeleteTask from '../modals/delete/deleteTask/DeleteTask';
 import EditTask from '../modals/edit/editTask/EditTask';
+import { Select, initTE } from "tw-elements";
+initTE({ Select });
 
 
 
@@ -21,11 +23,10 @@ export default function TasksV2() {
     const [loading, setLoading] = useState(false)
     const { taches, setTaches, idTache, membres, setMembres, refresh, setAddTaskModalIsOpen, addTaskModalIsOpen, projets, setProjets } = useContext(StateContext)
 
-    const [tachesFetched, setTachesFetched] = useState([])
     const [projetsFetched, setProjetsFetched] = useState(projets)
-
+    const [tachesFetched, setTachesFetched] = useState(projets.forEach((p) => p.taches))
+    const [status,setStatus]=useState(null)
    // const fetchTaches = useCallback(() => axiosClient.get(`/taches`), [taches]);
-
     const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
 
     useEffect(() => {
@@ -50,7 +51,6 @@ export default function TasksV2() {
         
         axiosClient.get("/projets").then((response) => {
             setProjetsFetched(response.data)
-            console.log(projetsFetched);
         })
         if (!projets.length) {
             axiosClient.get("/projets").then((response) => {
@@ -60,25 +60,18 @@ export default function TasksV2() {
     }, [refresh])
 
     const searchTache = (e) => {
-        setTachesFetched(taches.filter((p) => (p.nom.toLocaleLowerCase().includes(e))))
+        setProjetsFetched(projets.filter((p) => (p.nom.toLocaleLowerCase().includes(e))))
     }
     const { t } = useTranslation()
-    const handleMouseEnter = () => {
-        document.documentElement.style.overflow = "hidden";
-    };
-
-    const handleMouseLeave = () => {
-        document.documentElement.style.overflow = "auto";
-    };
-
+    
 
     return (
         <>
             <h1>{t("taches")}</h1>
-            <Search searchCloser={searchTache} />
+            <Search searchCloser={searchTache} placeHolder={"chercher un projet"} />
             {loading ? <div className='loader'><LoadingMarkup /></div>
                 : (
-                    <div className="content-container">
+                    <div className=" mt-6">
                         {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
                             &&
                             <AddTask />
@@ -97,15 +90,32 @@ export default function TasksV2() {
                         {
                             projetsFetched.length > 0 &&
                           
-                            <div>
+                            <div className=' min-w-full min-h-full '>
                                     {
                                         projetsFetched.map((p) => {
                                             if (p.taches.length > 0) {
+                                                const filteredTaches = status != null
+                                                    ? p.taches.filter((tache) => tache.statut == status)
+                                                    : p.taches;
+                                                
                                                 return (
-                                                    <div key={p.id_projet} className='shadow border p-2 m-2  '>
-                                                        <h2 className=' text-violet-600 text-lg font-bold'> <span className=' text-orange-400'>Projet: </span> {p.nom}</h2>
-                                                        <div className='flex justify-between gap-4 flex-row overflow-x-scroll flex-nowrap'>
-                                                            {p.taches.map((tache) => {
+                                                    <div key={p.id_projet} className='project-card-container min-h-[400px]  scale-90 shadow border p-1  m-2 min-w-full '>
+                                                        <div className="flex justify-between px-6 gap-5">
+                                                            <h2 className=' text-violet-600 text-lg font-bold'> <span className=' text-orange-400 font-normal'>Projet: </span> {p.nom}</h2>
+
+                                                            <select data-te-select-init defaultValue={0} onChange={(e) => {
+                                                                setStatus(e.target.value)
+                                                            }}>
+                                                                <option value="0">filtre</option>
+                                                                <option value="0">pas commence</option>
+                                                                <option value="1">entrain</option>
+                                                                <option value="2">finie</option>
+                                                            </select>
+
+                                                        </div>
+                                                        <div
+                                                        className='flex justify-between gap-4 pb-1 flex-row overflow-x-scroll flex-nowrap'>
+                                                            {filteredTaches.map((tache) => {
                                                                 const id = tache.id_tache
                                                                 const nom = tache.nom
                                                                 const description = tache.description
