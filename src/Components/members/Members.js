@@ -20,6 +20,7 @@ import AddBtn from '../sub-components/AddBtn';
 import AddMember from '../modals/add/AddMember';
 
 import Search from '../sub-components/search/Search'
+import PdfButton from '../sub-components/PdfButton';
 
 
 const Members = () => {
@@ -55,8 +56,12 @@ const Members = () => {
   return (
     <>
       <h1>Membres</h1>
-      <Search searchCloser={searchMembre} />
-      <div className='content-container'>
+      <div className="flex justify-between">
+        <Search searchCloser={searchMembre} />
+        <PdfButton title={"PDF"} />
+      </div>
+
+      <div className='content-container mt-0'>
         <div className="text-neutral-700 dark:text-neutral-300 ">
           <div className="grid gap-4 md:grid-cols-4 text-center">
             {membresFetched.length > 0 && membresFetched.map((m) => {

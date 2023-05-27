@@ -15,6 +15,7 @@ import { AddTask } from '../modals/add/AddTask';
 import DeleteTask from '../modals/delete/deleteTask/DeleteTask';
 import EditTask from '../modals/edit/editTask/EditTask';
 import { Select, initTE } from "tw-elements";
+import PdfButton from '../sub-components/PdfButton';
 initTE({ Select });
 
 
@@ -66,7 +67,11 @@ export default function Tasks() {
   return (
     <>
       <h1>{t("taches")}</h1>
-      <Search searchCloser={searchTache} placeHolder={"chercher un projet"} />
+      <div className="flex justify-between">
+        <Search searchCloser={searchTache} placeHolder={"chercher un projet"} />
+        <PdfButton title={"PDF"} />
+      </div>
+     
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">

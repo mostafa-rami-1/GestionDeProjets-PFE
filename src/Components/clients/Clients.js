@@ -11,6 +11,7 @@ import { AddCircle, Edit, Trash } from 'iconsax-react';
 import AddClient from '../modals/add/AddClient';
 import DeleteClient from '../modals/delete/DeleteClient';
 import EditClient from '../modals/edit/EditClient';
+import PdfButton from '../sub-components/PdfButton';
 
 const Clients = () => {
   const { t } = useTranslation()
@@ -41,7 +42,11 @@ const Clients = () => {
   return (
     <>
       <h1>Clients</h1>
-      <Search searchCloser={searchClients} />
+      
+      <div className="flex justify-between">
+        <Search searchCloser={searchClients} />
+        <PdfButton title={"PDF"} />
+      </div>
       {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
         &&
         <AddClient />
@@ -49,7 +54,7 @@ const Clients = () => {
       {(localStorage.getItem("role") === "admin")
         &&
         <div className="ajouter" onClick={() => setAddClientModalIsOpen(true)}>
-          <AddCircle size="40" color='#8A4DD9' variant="Bulk" />
+          <AddCircle size="80" color='#8A4DD9' variant="Bulk" />
         </div>}
       
       <div className=" max-h-[80%] overflow-x-auto overflow-y-auto my-14">

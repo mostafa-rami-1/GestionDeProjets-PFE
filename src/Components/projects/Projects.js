@@ -5,12 +5,15 @@ import { useTranslation } from 'react-i18next';
 import ProjectCard from './ProjectCard';
 import { StateContext } from '../../ContextProvider';
 import LoadingMarkup from '../loader/LoadingMarkup';
-import "./projetcs.css"
 import { Description } from '../modals/description/Description';
 import EditModal from '../modals/edit/EditModal';
 import Search from '../sub-components/search/Search';
 import { AddCircle } from 'iconsax-react';
 import { AddProject } from '../modals/add/AddProject';
+import PdfButton from '../sub-components/PdfButton';
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
+import "./projetcs.css"
 
 
 
@@ -69,7 +72,10 @@ export default function Projects() {
   return (
     <>
       <h1>{t("Projets")}</h1>
-      <Search searchCloser={searchProject}/>
+      <div className="flex justify-between">
+        <Search searchCloser={searchProject} />
+        <PdfButton title={"PDF"} />
+      </div>
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (
           <div className="content-container">

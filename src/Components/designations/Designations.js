@@ -12,6 +12,7 @@ import Search from '../sub-components/search/Search'
 import AddDesignation from '../modals/add/AddDesignation';
 import DeleteDesignation from '../modals/delete/deleteDesignation';
 import EditDesignation from '../modals/edit/EditDesignation';
+import PdfButton from '../sub-components/PdfButton';
 
 function Designations() {
   const { t } = useTranslation()
@@ -40,7 +41,11 @@ function Designations() {
     
     <>
       <h1>{t("Designation")}</h1>
-      <Search searchCloser={searchDesignation} />
+     
+      <div className="flex justify-between">
+        <Search searchCloser={searchDesignation} />
+        <PdfButton title={"PDF"} />
+      </div>
       {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
         &&
         <AddDesignation />
@@ -100,7 +105,7 @@ function Designations() {
       {(localStorage.getItem("role") === "admin")
         &&
         <div className="ajouter" onClick={() => setEditModalIsOpen(true)}>
-          <AddCircle size="40" color='#8A4DD9' variant="Bulk" />
+          <AddCircle size="80" color='#8A4DD9' variant="Bulk" />
         </div>}
     </>
 

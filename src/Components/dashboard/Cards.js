@@ -8,7 +8,8 @@ const Cards = () => {
         <div className="cards">
             <Card name="Projets" type="projectsCard" num={projets.length} path="/projects" />
             <Card name="Taches" type="tasksCard" num={taches.length} path="/tasks"/>
-            <Card name="Membres" type="membersCard" num={membres.length} path="/members"/>
+            <Card name="Membres" type="membersCard" num={membres.length} path="/members" />
+           
         </div>
     )
 }

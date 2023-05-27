@@ -167,14 +167,16 @@ section > .search{
 
 .ajouter{
     position: fixed;
-    bottom: 40px;
-    right: 25px;
+    bottom: 0px;
+    right: -5px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     z-index: 10;
     cursor: pointer;
     opacity: 0.9;
+    scale: 0.8;
+   
 }
 .ajouter:hover {
     opacity: 1;

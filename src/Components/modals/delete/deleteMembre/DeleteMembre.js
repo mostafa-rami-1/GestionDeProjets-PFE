@@ -19,7 +19,7 @@ const DeleteMembre = () => {
                 setDataFetched(false)
                 setIsMembersFetched(false)
             }
-            ).catch((error) => { console.log(""); })
+            ).catch((error) => { console.log(error); })
     }
     const annuler = () => {
         setDeleteModalIsOpen(false)

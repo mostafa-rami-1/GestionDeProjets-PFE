@@ -93,9 +93,7 @@
 .stat > h4{
     font-weight: normal;
 }
-.chart-container{
-    padding: 10px;
-}
+
 .chart{
     background: #000;
     height: 200px;

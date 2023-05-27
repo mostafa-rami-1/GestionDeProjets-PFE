@@ -6,6 +6,7 @@ import axiosClient from '../../axios'
 import LoadingMarkup from '../loader/LoadingMarkup'
 import { StateContext } from '../../ContextProvider'
 import "./dash.css"
+import PdfButton from '../sub-components/PdfButton';
 
 const Dashboard = () => {
     const [loading, setLoading] = useState(false)
@@ -46,6 +47,10 @@ const Dashboard = () => {
     return (
             <>
             <h1>{t("Tableau de bord")}</h1>
+            <div className="flex justify-end align-middle">
+                
+                <PdfButton title={"Rapport"} />
+            </div>
             {(loading && projets.length>0) ? <div className='loader'><LoadingMarkup /></div>
                 : (
                     <>
