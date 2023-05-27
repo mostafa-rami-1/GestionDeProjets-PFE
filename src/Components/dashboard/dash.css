@@ -25,8 +25,8 @@
     flex-direction: column;
    justify-content: space-between;
     border-radius: 10px;
-    width: 336px;
-    height: 188px;
+    width: 260px;
+    height: 150px;
     padding-inline: 15px;
     padding-block: 30px;
     box-shadow: 0 3px 5px 1px rgba(0,0,0,0.45);
@@ -39,7 +39,7 @@
     opacity: 0.8;
 }
 .cards >div>p{
-    font-size: 30px;
+    font-size: 25px;
     color: #fff;
     text-shadow: 0 4px 10px  rgba(0,0,0,0.5);
 }
@@ -59,7 +59,15 @@
 .membersCard{
     background: #ff6360;
 }
-
+.categoriesCard{
+    background-color: #4f9da6;
+}
+.designationsCard{
+    background-color:#7dd87d ;
+}
+.clientsCard{
+    background-color: #ffad5a;
+}
 .stats{
     display: flex;
     width: 100%;

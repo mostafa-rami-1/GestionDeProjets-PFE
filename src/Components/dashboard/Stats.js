@@ -3,6 +3,7 @@ import Stat  from "./Stat"
 
 import {StateContext} from '../../ContextProvider'
 import { useTranslation } from "react-i18next";
+import { Doughnut,Pie } from "react-chartjs-2";
 
 
 
@@ -31,9 +32,9 @@ const Stats = () => {
 
     return(
         <div className="stats">
-            <Stat  title={t("Statistiques de projets")} Data={projetsData} />
+            <Stat Type={Pie}  title={t("Statistiques de projets")} Data={projetsData} />
 
-            <Stat  title={t("Statistiques de tâches")} Data={tachesData} />
+            <Stat Type={Doughnut} title={t("Statistiques de tâches")} Data={tachesData} />
             
         </div>
     )

@@ -6,7 +6,7 @@ import { StateContext } from "../../ContextProvider";
 
 
 const Card = ({ name, type, num, path }) => {
-    num = num ||0
+    num = num || 0
     const navigate = useNavigate()
     const { setPath } = useContext(StateContext)
     

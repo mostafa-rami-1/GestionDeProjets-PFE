@@ -19,7 +19,7 @@ const options = {
 };
 
 
-const Stat = ({ title, Data}) => {
+const Stat = ({ title, Data,Type}) => {
     const data = {
                     labels: Data.labels,
                     datasets: [
@@ -42,7 +42,7 @@ const Stat = ({ title, Data}) => {
                 {title}
             </h4>
             <div>
-                    <Doughnut options={options} width="100%" height="100%" data={data}/>
+                    <Type options={options} width="100%" height="100%" data={data}/>
             </div>
         </div>
     )

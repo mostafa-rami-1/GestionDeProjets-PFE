@@ -50,7 +50,7 @@ function Designations() {
         &&
         <AddDesignation />
       }
-      <div className=" max-h-[80%] overflow-x-auto overflow-y-auto my-14">
+      <div className=" max-h-[80%] overflow-x-auto overflow-y-auto">
         <table className="min-w-full text-left text-sm font-light">
           <thead className="border-b font-medium dark:border-neutral-500">
             <tr className=' sticky top-0 text-neutral-100 bg-purple-600 w-full my-0'>
