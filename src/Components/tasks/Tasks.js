@@ -16,7 +16,6 @@ import DeleteTask from '../modals/delete/deleteTask/DeleteTask';
 import EditTask from '../modals/edit/editTask/EditTask';
 import { Select, initTE } from "tw-elements";
 import PdfButton from '../sub-components/PdfButton';
-initTE({ Select });
 
 
 export default function Tasks() {
@@ -24,11 +23,17 @@ export default function Tasks() {
   const { taches, setTaches, idTache, membres, setMembres, refresh, setAddTaskModalIsOpen, addTaskModalIsOpen, projets, setProjets } = useContext(StateContext)
 
   const [projetsFetched, setProjetsFetched] = useState(projets)
-  
-  const [status, setStatus] = useState(null)
   const fetchMembres = useCallback(() => axiosClient.get("/membres"), [membres])
+  const [filteredTasksMap, setFilteredTasksMap] = useState({});
+  const initialFilteredTasksMap = projetsFetched.reduce((map, project) => {
+    const tasks = project.taches;
+    map[project.id_projet] = tasks;
+    return map;
+  }, {});
 
   useEffect(() => {
+    initTE({ Select });
+
     if (!taches.length) {
       async function fetchTachesData() {
         try {
@@ -63,6 +68,21 @@ export default function Tasks() {
   }
   const { t } = useTranslation()
 
+  
+
+  const handleStatusChange = (projectId, selectedStatus) => {
+    if (selectedStatus === "tout") {
+      setFilteredTasksMap(initialFilteredTasksMap);
+    } else {
+      setFilteredTasksMap((prevMap) => ({
+        ...prevMap,
+        [projectId]: selectedStatus !== null
+          ? projetsFetched.find((p) => p.id_projet === projectId).taches.filter((tache) => tache.statut == selectedStatus)
+          : projetsFetched.find((p) => p.id_projet === projectId).taches,
+      }));
+    }
+  };
+
 
   return (
     <>
@@ -72,7 +92,7 @@ export default function Tasks() {
         <PdfButton title={"PDF"} />
       </div>
      
-      {loading ? <div className='loader'><LoadingMarkup /></div>
+      {loading ? <div className='loader'><LoadingMarkup/></div>
         : (
           <div className="content-container">
             {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
@@ -92,33 +112,28 @@ export default function Tasks() {
             }
             {
               projetsFetched.length > 0 &&
-
-              <div className=' min-w-full min-h-full '>
+              <div className='min-w-full min-h-full '>
                 {
                   projetsFetched.map((p) => {
                     if (p.taches.length > 0) {
-                      const filteredTaches = status != null
-                        ? p.taches.filter((tache) => tache.statut == status)
-                        : p.taches;
-
+                      //const filteredTaches = status !== null ? p.taches.filter((tache) => tache.statut == status) : p.taches;
+                      const projectId = p.id_projet;
+                      const projectTasks = p.taches;
+                      const filteredTasks = filteredTasksMap[projectId] || projectTasks;
                       return (
                         <div key={p.id_projet} className='project-card-container min-h-[400px] scale-95   shadow border p-1   min-w-full '>
-                          <div className="flex justify-between p-7 gap-5">
+                          <div className="flex justify-between p-6 gap-5">
                             <h2 className=' text-violet-600 text-lg font-bold'> <span className=' text-orange-400 font-normal'>Projet: </span> {p.nom}</h2>
-
-                            <select data-te-select-init defaultValue={0} onChange={(e) => {
-                              setStatus(e.target.value)
-                            }}>
-                              <option value="0">filtre</option>
+                            <select data-te-select-init defaultValue="tout"  onChange={(e) => { handleStatusChange(projectId, e.target.value) }}>
+                              <option value="tout">tout</option>
                               <option value="0">pas commence</option>
                               <option value="1">entrain</option>
                               <option value="2">finie</option>
                             </select>
-
                           </div>
                           <div
                             className='flex  gap-4 pb-1 flex-row overflow-x-scroll flex-nowrap'>
-                            {filteredTaches.map((tache) => {
+                            {filteredTasks.map((tache) => {
                               const id = tache.id_tache
                               const nom = tache.nom
                               const description = tache.description
@@ -148,10 +163,9 @@ export default function Tasks() {
                           </div>
 
                         </div>
-
-                      )
+                        )
+                      }
                     }
-                  }
                   )
                 }
               </div>
