@@ -74,7 +74,6 @@ export default function Projects() {
       <h1>{t("Projets")}</h1>
       <div className="flex justify-between">
         <Search searchCloser={searchProject} />
-        <PdfButton title={"PDF"} />
       </div>
       {loading ? <div className='loader'><LoadingMarkup /></div>
         : (

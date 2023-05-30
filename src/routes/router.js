@@ -4,7 +4,6 @@ import { createBrowserRouter, Navigate } from "react-router-dom"
 import Dashboard  from "../Components/dashboard/Dashboard"
 import Members  from "../Components/members/Members"
 import Categories  from "../Components/categories/Categories"
-import Reports from "../Components/reports/Reports"
 import Tasks from "../Components/tasks/Tasks"
 import Projects from "../Components/projects/Projects"
 import Designations from "../Components/designations/Designations"
@@ -13,7 +12,6 @@ import { Test } from "../Test";
 import ProtectedLoginRoute from './ProtectedLoginRoute'
 import ProtectedRoute from './ProtectedRoute'
 import Clients from '../Components/clients/Clients'
-import TasksV2 from '../Components/tasksV2/TasksV2'
 
 
 
@@ -73,15 +71,10 @@ const router = createBrowserRouter([
           <ProtectedRoute component={Clients} loginPath="/login" />
         ),
       },
-      {
-        path: "/reports",
-        element: (
-          <ProtectedRoute component={Reports} loginPath="/login" />
-        ),
-      },
+      
       {
         path: "/test",
-        element: <TasksV2 />,
+        element: <Test />,
       },
     ],
   },

@@ -51,7 +51,6 @@ const Dashboard = () => {
         categories,
         designations
     } = useContext(StateContext)
-    console.log(taches);
     const projetsAchevés = projets.filter((p) => p.statut === 2).length
     const projetsEnCourse = projets.filter((p) => p.statut === 1).length
     const projetsNonAchevés = projets.filter((p) => p.statut === 0).length
@@ -300,10 +299,8 @@ const Dashboard = () => {
                 columns,
                 body: rows,
             });
-
             // Calculate the table height for the next positioning
             const prTable = doc.previousAutoTable.finalY + 10;
-
             // Check if there is enough space for the next table
             if (prTable > doc.internal.pageSize.height - 10) {
                 doc.addPage();

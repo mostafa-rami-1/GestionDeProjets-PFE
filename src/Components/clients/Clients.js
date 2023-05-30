@@ -45,7 +45,6 @@ const Clients = () => {
       
       <div className="flex justify-between">
         <Search searchCloser={searchClients} />
-        <PdfButton title={"PDF"} />
       </div>
       {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
         &&

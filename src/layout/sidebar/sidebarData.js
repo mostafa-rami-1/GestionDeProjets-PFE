@@ -35,12 +35,8 @@ export const data = [
     {
         icon:Profile2User,
         title: "Clients",
-        link: "Clients"
+        link: "clients"
     },
-    {
-        icon:NoteText,
-        title: "Rapports",
-        link: "reports"
-    }
+    
 ]
 

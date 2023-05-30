@@ -58,7 +58,6 @@ const Members = () => {
       <h1>Membres</h1>
       <div className="flex justify-between">
         <Search searchCloser={searchMembre} />
-        <PdfButton title={"PDF"} />
       </div>
 
       <div className='content-container mt-0'>

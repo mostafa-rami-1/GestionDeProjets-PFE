@@ -44,7 +44,6 @@ function Designations() {
      
       <div className="flex justify-between">
         <Search searchCloser={searchDesignation} />
-        <PdfButton title={"PDF"} />
       </div>
       {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
         &&

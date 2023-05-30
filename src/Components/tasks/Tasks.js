@@ -89,8 +89,7 @@ export default function Tasks() {
       <h1>{t("taches")}</h1>
       <div className="flex justify-between">
         <Search searchCloser={searchTache} placeHolder={"chercher un projet"} />
-        <PdfButton title={"PDF"} />
-      </div>
++      </div>
      
       {loading ? <div className='loader'><LoadingMarkup/></div>
         : (

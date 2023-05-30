@@ -43,7 +43,6 @@ const Categories = () => {
       <h1>{t("Categories")}</h1>
       <div className="flex justify-between">
         <Search searchCloser={searchCategorie} />
-        <PdfButton title={"PDF"} />
 
       </div>
       {(localStorage.getItem("role") === "admin" || localStorage.getItem("role") === "chef_de_projet")
