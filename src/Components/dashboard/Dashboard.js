@@ -132,9 +132,9 @@ const Dashboard = () => {
 
         fetchData();
     }, []);
-    
     const downloadPdf = () => {
-        const doc = new jsPDF()
+        const doc = new jsPDF();
+
         // Define the table columns
         const projectsColumns = [
             { header: 'ID', dataKey: 'id_projet' },
@@ -151,7 +151,7 @@ const Dashboard = () => {
         ];
 
         // Define the table rows
-        const projectsRows = projets.map(item => ({
+        const projectsRows = projets.map((item) => ({
             id_projet: item.id_projet,
             nom: item.nom,
             categorie: item.categorie.nom,
@@ -160,7 +160,12 @@ const Dashboard = () => {
             cout: item.cout,
             date_debut: item.date_debut,
             date_livraison: item.date_livraison,
-            statut: item.statut === 0 ? 'Non réalisé' : item.statut === 1 ? 'En cours' : 'Réalisé',
+            statut:
+                item.statut === 0
+                    ? 'Non réalisé'
+                    : item.statut === 1
+                        ? 'En cours'
+                        : 'Réalisé',
             membres: item.membres.length,
             taches: item.taches.length,
         }));
@@ -175,55 +180,83 @@ const Dashboard = () => {
             { header: 'Statut', dataKey: 'statut' },
             { header: 'Membres', dataKey: 'membres' },
         ];
-        const tachesRows = taches.map(item => ({
+        const tachesRows = taches.map((item) => ({
             id_tache: item.id_tache,
             nom: item.nom,
             projet: item.projet.nom,
             chef_projet: item.projet.chef_projet.nom,
             date_debut: item.date_debut,
             date_fin: item.date_fin,
-            statut: item.statut === 0 ? 'Non réalisé' : item.statut === 1 ? 'En cours' : 'Réalisé',
+            statut:
+                item.statut === 0
+                    ? 'Non réalisé'
+                    : item.statut === 1
+                        ? 'En cours'
+                        : 'Réalisé',
             membres: item.membres.length,
+        }));
+
+        const membresColumns = [
+            { header: 'ID', dataKey: 'id_membre' },
+            { header: 'Prenom', dataKey: 'prenom' },
+            { header: 'Nom', dataKey: 'nom' },
+            { header: 'Email', dataKey: 'email' },
+            { header: 'Telephone', dataKey: 'telephone' },
+            {header:"Role",dataKey:"role"}
+        ]
+        const membresRows = membres.map((item) => ({
+            id_membre: item.id_membre,
+            prenom: item.prenom,
+            nom: item.nom,
+            email: item.email,
+            telephone: item.telephone,
+            role:item.role.id_role===1?"Admin":item.role.id_role===2?"Chef de projet":"Membre"
+        }));
+       
+
+        const clientsColumns = [
+            { header: 'ID', dataKey: 'id_client' },
+            {header:'Prenom',dataKey:'prenom'},
+            { header: 'Nom', dataKey: 'nom' },
+            { header: 'Email', dataKey: 'email' },
+            { header: 'Telephone', dataKey: 'telephone' },
+        ]
+
+        const clientsRows = clients.map((item) => ({
+            id_client: item.id_client,
+            prenom: item.prenom,
+            nom: item.nom,
+            email: item.email,
+            telephone:item.telephone   
         }));
         const tablesData = [
             {
                 title: 'total',
-                headers: ['Projets', 'Taches', 'Clients','Membres','Categories','Designations'],
-                data: [
-                    [projets.length,taches.length,clients.length,membres.length,categories.length,designations.length]
-                ],
+                headers: ['Projets', 'Taches', 'Clients', 'Membres', 'Categories', 'Designations'],
+                data: [[projets.length, taches.length, clients.length, membres.length, categories.length, designations.length]],
             },
             {
                 title: 'Statistiques de projets',
                 headers: ['Non réalisé', 'En cours', 'Réalisé'],
-                data: [
-                    [projetsNonAchevés, projetsEnCourse, projetsAchevés],
-                ],
+                data: [[projetsNonAchevés, projetsEnCourse, projetsAchevés]],
             },
             {
                 title: 'Statistiques de taches',
                 headers: ['Non réalisé', 'En cours', 'Réalisé'],
-                data: [
-                    [tachesNonAchevés, tachesEnCourse, tachesAchevés],
-                ],
+                data: [[tachesNonAchevés, tachesEnCourse, tachesAchevés]],
             },
             {
                 title: 'Nombre de projets par categorie',
-                headers: categories.map((c)=>c.nom),
-                data: [
-                    pCountsCat
-                ],
+                headers: categories.map((c) => c.nom),
+                data: [pCountsCat],
             },
             {
                 title: 'Nombre de projets par mois',
-                headers: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-                data: [
-                    pCountsMois
-                ],
+                headers: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                data: [pCountsMois],
             },
-            
-            
         ];
+
         // Set the initial y position
         let yPos = 10;
 
@@ -235,7 +268,6 @@ const Dashboard = () => {
             doc.setFontSize(14);
             doc.text(title, 10, yPos);
             yPos += 10;
-           
 
             // Generate the table
             doc.autoTable({
@@ -256,35 +288,39 @@ const Dashboard = () => {
             }
         });
 
-        doc.autoTable({
-            title: "Projets",
-            theme: "grid",
-            columns: projectsColumns,
-            body: projectsRows
-        })
-        doc.autoTable({
-            title: "Taches",
-            theme: "grid",
-            columns: tachesColumns,
-            body: tachesRows
-        })
+        // Add title for the "Projets" table
+        function addTable(text, rows, columns, theme = "grid") {
+            doc.setFontSize(14);
+            doc.text(text, 10, yPos);
+            yPos += 10;
+            const marginTop = 1
+            doc.autoTable({
+                startY: yPos + marginTop,
+                theme,
+                columns,
+                body: rows,
+            });
 
-        const table = doc.previousAutoTable.finalY + 10;
+            // Calculate the table height for the next positioning
+            const prTable = doc.previousAutoTable.finalY + 10;
 
-        // Check if there is enough space for the next table
-        if (table > doc.internal.pageSize.height - 10) {
-            doc.addPage();
-            yPos = 10;
-        } else {
-            yPos = table;
+            // Check if there is enough space for the next table
+            if (prTable > doc.internal.pageSize.height - 10) {
+                doc.addPage();
+                yPos = 10;
+            } else {
+                yPos = prTable;
+            }
         }
-      
-        
+        addTable("Projets",projectsRows,projectsColumns)
+        addTable("Taches", tachesRows, tachesColumns)
+        addTable("Membres", membresRows, membresColumns)
+        addTable("Clients",clientsRows,clientsColumns)
 
         // Save the PDF
         doc.save('multi-tables.pdf');
-
     }
+
 
     return (
             <>
