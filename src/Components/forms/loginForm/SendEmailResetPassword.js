@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next'
 import axiosClient from '../../../axios'
 import MiniLoader from '../../loader/MiniLoader'
 import LanguageModal from '../../modals/LanguageModal'
+import MessageApi from '../../modals/message/Message'
 
 export default function SendEmailResetPassword() {
     const { t } = useTranslation()
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [error, setError] = useState({ __html: "", __html2: "" })
+    const [msg, setMsg] = useState("")
+    const [success, setSuccess] = useState(false)
     const handleSubmit = (ev) => {
         ev.preventDefault()
         setError({ __html: "", __html2: "" })
@@ -17,7 +20,11 @@ export default function SendEmailResetPassword() {
             email,
         })
             .then(({ data }) => {
-               console.log(data);
+                setSuccess(true)
+                setMsg(data.message)
+                setTimeout(() => {
+                    window.location.pathname = "/login"
+                }, 800);
             })
             .catch((error) => {
                 if (error.response) {
@@ -37,31 +44,40 @@ export default function SendEmailResetPassword() {
             .finally(() => setIsLoading(false));
     }
 
-  return (
-      <div className="mainContent">
-          <div className="formContainer">
-              <div><span>{t("entrez votre email")}</span></div>
+    return (
+        <>
+            {msg ? (<div className=" h-screen w-screen min-w-[100vw] min-h-[100vh] flex justify-center align-middle">
+                <div className="edit-center-loading" >
+                    < MessageApi msg={msg} success={success} />
+                </div >
+            </div>) :
+                (<div className="mainContent">
+                    <div className="formContainer">
+                        <div><span>{t("entrez votre email")}</span></div>
 
 
-              <form method="post" onSubmit={handleSubmit}>
-                  {error.__html2 && <p className="error">{t(error.__html2)}</p>}
-                  <input autoComplete="off" className="inpEmail" type="email" name="email" value={email}
-                      placeholder={t("email")}
-                      onChange={(ev) => setEmail(ev.target.value)} />
-                  {error.__html ? <p className="error">{t(error.__html[0])}</p> : ""}
+                        <form method="post" onSubmit={handleSubmit}>
+                            {error.__html2 && <p className="error">{t(error.__html2)}</p>}
+                            <input autoComplete="off" className="inpEmail" type="email" name="email" value={email}
+                                placeholder={t("email")}
+                                onChange={(ev) => setEmail(ev.target.value)} />
+                            {error.__html ? <p className="error">{t(error.__html[0])}</p> : ""}
 
 
-                  <div className="submit">
-                      {isLoading ?
-                          <MiniLoader />
-                          :
-                          <input type="submit" value={t("envoyer")} />
-                      }
-                  </div>
+                            <div className="submit">
+                                {isLoading ?
+                                    <MiniLoader />
+                                    :
+                                    <input type="submit" value={t("envoyer")} />
+                                }
+                            </div>
 
-              </form>
-          </div>
-          <LanguageModal />
-      </div>
-  )
+                        </form>
+                    </div>
+                    <LanguageModal />
+                </div>)}
+        </>
+            )
+        
+      
 }
