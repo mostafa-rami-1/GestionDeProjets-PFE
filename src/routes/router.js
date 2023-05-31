@@ -12,6 +12,8 @@ import { Test } from "../Test";
 import ProtectedLoginRoute from './ProtectedLoginRoute'
 import ProtectedRoute from './ProtectedRoute'
 import Clients from '../Components/clients/Clients'
+import SendEmailResetPassword from '../Components/forms/loginForm/SendEmailResetPassword'
+import ResetPassword from '../Components/forms/loginForm/ResetPassword'
 
 
 
@@ -81,6 +83,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <ProtectedLoginRoute component={Login} redirectTo="/dashboard" />,
+  },
+  {
+    path: "/send_reset",
+    element: <ProtectedLoginRoute component={SendEmailResetPassword} redirectTo="/login" />,
+  },
+  {
+    path: "/reset/:token",
+    element: <ProtectedLoginRoute component={ResetPassword} redirectTo="/login" />,
   },
   
   {

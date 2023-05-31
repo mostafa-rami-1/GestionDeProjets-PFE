@@ -135,8 +135,6 @@ const EditModal = ({ id }) => {
             })
        
     }
-    
-  
   return (
       <div className={editModalIsOpen ? 'show' : 'hide'}>
           {msg ? <div className="edit-center-loading">
@@ -270,8 +268,6 @@ const EditModal = ({ id }) => {
                 </div>  
             </form>    
             )
-            
-            
             }
     </div>
   )

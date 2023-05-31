@@ -4,6 +4,8 @@ import React, { useState, useContext, memo } from "react";
 import { useTranslation } from "react-i18next";
 import axiosClient from "../../../axios";
 import { useSignIn } from 'react-auth-kit'
+import { Link } from "react-router-dom"
+
 import "./login.css"
 import { StateContext } from "../../../ContextProvider";
 import MiniLoader from "../../loader/MiniLoader";
@@ -56,27 +58,33 @@ const LoginForm = () => {
     }
 
     return (
-        <form method="post" onSubmit={handleSubmit}>
-            {error.__html2 && <p className="error">{t(error.__html2)}</p>}
-            <input autoComplete="off" className="inpEmail" type="email" name="email" value={email}
-                placeholder={t("email")}
-                onChange={(ev) => setEmail(ev.target.value)} />
-            {error.__html ? <p className="error">{t(error.__html[0])}</p> : ""}
+        <>
+            
+            <form method="post" onSubmit={handleSubmit}>
+                {error.__html2 && <p className="error">{t(error.__html2)}</p>}
+                <input autoComplete="off" className="inpEmail" type="email" name="email" value={email}
+                    placeholder={t("email")}
+                    onChange={(ev) => setEmail(ev.target.value)} />
+                {error.__html ? <p className="error">{t(error.__html[0])}</p> : ""}
 
-            <input autoComplete="off" className="inpPassword" type="password" name="password" value={password}
-                placeholder={t("mot de passe")}
-                onChange={(ev) => setPassword(ev.target.value)} />
-            {error.__html ? <p className="error">{t(error.__html[1])}</p> : ""}
+                <input autoComplete="off" className="inpPassword" type="password" name="password" value={password}
+                    placeholder={t("mot de passe")}
+                    onChange={(ev) => setPassword(ev.target.value)} />
+                {error.__html ? <p className="error">{t(error.__html[1])}</p> : ""}
 
-            <div className="submit">
-                {isLoading ?
-                    <MiniLoader />
-                    :
-                    <input type="submit" value={t("s'identifier")} />
-                }
+                <div className="submit">
+                    {isLoading ?
+                        <MiniLoader />
+                        :
+                        <input type="submit" value={t("s'identifier")} />
+                    }
+                </div>
 
-            </div>
-        </form>
+            </form>
+            <Link to="/send_reset">mot de passe oublier?</Link>
+        </>
+
+
     )
 }
 export default memo(LoginForm)
