@@ -81,7 +81,7 @@ const LoginForm = () => {
                 </div>
 
             </form>
-            <Link to="/send_reset">mot de passe oublier?</Link>
+            <p className=" text-violet-800 text-lg"> <Link to="/send_reset">mot de passe oublier?</Link></p>
         </>
 
 

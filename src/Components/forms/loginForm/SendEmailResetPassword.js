@@ -24,7 +24,7 @@ export default function SendEmailResetPassword() {
                 setMsg(data.message)
                 setTimeout(() => {
                     window.location.pathname = "/login"
-                }, 800);
+                }, 10000);
             })
             .catch((error) => {
                 if (error.response) {
